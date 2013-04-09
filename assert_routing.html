@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre># 'cheat assertions' for the rest
+
+assert_routing(path, options, defaults={}, extras={}, message=nil)
+
+Asserts that path and options match both ways; in other words, it verifies that path generates options and then that options generates path. This essentially combines assert_recognizes and assert_generates into one step.
+
+The extras hash allows you to specify options that would normally be provided as a query string to the action. The message parameter allows you to specify a custom error message to display upon failure.
+
+Examples
+
+ # Assert a basic route: a controller with the default action (index)
+ assert_routing('/home', :controller =&gt; 'home', :action =&gt; 'index')
+
+ # Test a route generated with a specific controller, action, and parameter (id)
+ assert_routing('/entries/show/23', :controller =&gt; 'entries', :action =&gt; 'show', id =&gt; 23)
+
+ # Assert a basic route (controller + default action), with an error message if it fails
+ assert_routing('/store', { :controller =&gt; 'store', :action =&gt; 'index' }, {}, {}, 'Route for store index not generated properly')
+
+ # Tests a route, providing a defaults hash
+ assert_routing 'controller/action/9', {:id =&gt; &quot;9&quot;, :item =&gt; &quot;square&quot;}, {:controller =&gt; &quot;controller&quot;, :action =&gt; &quot;action&quot;}, {}, {:item =&gt; &quot;square&quot;}</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre># 'cheat assertions' for the rest
+
+assert_generates(expected_path, options, defaults={}, extras = {}, message=nil)
+
+Asserts that the provided options can be used to generate the provided path. This is the inverse of assert_recognizes. The extras parameter is used to tell the request the names and values of additional request parameters that would be in a query string. The message parameter allows you to specify a custom error message for assertion failures.
+
+The defaults parameter is unused.
+
+Examples
+
+  # Asserts that the default action is generated for a route with no action
+  assert_generates(&quot;/items&quot;, :controller =&gt; &quot;items&quot;, :action =&gt; &quot;index&quot;)
+
+  # Tests that the list action is properly routed
+  assert_generates(&quot;/items/list&quot;, :controller =&gt; &quot;items&quot;, :action =&gt; &quot;list&quot;)
+
+  # Tests the generation of a route with a parameter
+  assert_generates(&quot;/items/list/1&quot;, { :controller =&gt; &quot;items&quot;, :action =&gt; &quot;list&quot;, :id =&gt; &quot;1&quot; })
+
+  # Asserts that the generated route gives us our custom route
+  assert_generates &quot;changesets/12&quot;, { :controller =&gt; 'scm', :action =&gt; 'show_diff', :revision =&gt; &quot;12&quot; }
+</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

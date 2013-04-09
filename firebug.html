@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>&lt;command&gt; &lt;shift&gt; L  =&gt; brings up the firebug console
+
+Logging:
+  console.log(&quot;message&quot; [,objects])
+  console.debug(&quot;message&quot; [,objects])
+  console.info(&quot;message&quot; [,objects])
+  console.warn(&quot;message&quot; [,objects])
+  console.error(&quot;message&quot; [,objects])
+
+Assertions:
+  console.assert(a, &quot;message&quot; [,objects])
+  console.assertEquals(a, b, &quot;message&quot; [,objects])
+  console.assertNotEquals(a, b, &quot;message&quot; [,objects])
+  console.assertGreater(a, b, &quot;message&quot; [,objects])
+  console.assertNotGreater(a, b, &quot;message&quot; [,objects])
+  console.assertLess(a, b, &quot;message&quot; [,objects])
+  console.assertNotLess(a, b, &quot;message&quot; [,objects])
+  console.assertContains(a, b, &quot;message&quot; [,objects])
+  console.assertNotContains(a, b, &quot;message&quot; [,objects])
+  console.assertTrue(a, &quot;message&quot; [,objects])
+  console.assertFalse(a, &quot;message&quot; [,objects])
+  console.assertNull(a, &quot;message&quot; [,objects])
+  console.assertNotNull(a, &quot;message&quot; [,objects])
+  console.assertUndefined(a, &quot;message&quot; [,objects])
+  console.assertNotUndefined(a, &quot;message&quot; [,objects])
+  console.assertInstanceOf(a, b, &quot;message&quot; [,objects])
+  console.assertNotInstanceOf(a, b, &quot;message&quot; [,objects])
+  console.assertTypeOf(a, b, &quot;message&quot; [,objects])
+  console.assertNotTypeOf(a, b, &quot;message&quot; [,objects])
+
+Measurement:
+  console.trace()
+  console.time(&quot;name&quot;)
+  console.timeEnd(&quot;name&quot;)
+  console.count(&quot;name&quot;)
+
+String Formatting:
+  %s            string
+  %d,%i,%l,%f   number
+  %o            link to inspector
+  %1.o          interactive table of properties
+  %.o           array of property names
+  %x            XML
+  %N.x          XML with N levels expanded
+
+Command Line:
+  $(&quot;id&quot;)          document.getElementById()
+  $$(&quot;css&quot;)        array of elements matching css selector
+  $x(&quot;xpath&quot;)      array of elements matching xpath
+  $0               last inspected object
+  $1               next-to-last inspected object
+  $n(N)            N-th from last inspected object
+  inspect(object)  display object in inspector
+  dir(object)      array of property names for object
+  clear()          clear console
+
+http://www.joehewitt.com/software/firebug/</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>http://nubyonrails.com/pages/gruff
+
+#!/usr/bin/ruby
+
+require 'rubygems'
+require 'gruff'
+
+g = Gruff::Line.new
+g.title = &quot;My Graph&quot; 
+
+g.data(&quot;Apples&quot;, [1, 2, 3, 4, 4, 3])
+g.data(&quot;Oranges&quot;, [4, 8, 7, 9, 8, 9])
+g.data(&quot;Watermelon&quot;, [2, 3, 1, 5, 6, 8])
+g.data(&quot;Peaches&quot;, [9, 9, 10, 8, 7, 9])
+
+g.labels = {0 =&gt; '2003', 2 =&gt; '2004', 4 =&gt; '2005'}
+
+g.write('my_fruity_graph.png')</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Install:
+&gt;&gt; ./script/plugin install http://svn.techno-weenie.net/projects/plugins/permalink_fu/
+&gt;&gt; piston import http://svn.techno-weenie.net/projects/plugins/permalink_fu/
+
+Modify table:
+&gt;&gt; ./script/generate migration add_permalink_to_article
+&gt;&gt; add_column :designers, :permalink, :string
+
+Model:
+
+class Article &lt; ActiveRecord::Base
+        # title is the field name you want to convert to a permalink
+        has_permalink :title 
+        # you can also specifiy a different permalink field in your database by giving a second paramater
+        # has_permalink :title, :my_permalink_field
+
+        # we now add the to_param method which Rails's routing uses
+        def to_param
+              permalink
+        end         
+end
+
+Convert old titles to permalinks:
+&gt;&gt; Article.find(:all).each(&amp;:save)
+
+Hackish find(id):
+&gt;&gt; @article = Article.find_by_permalink(params[:id])
+
+# in your route file
+map.connect 'article/:permalink', :controller =&gt; 'article', :action =&gt; 'view'
+# in your views when linking
+link_to &quot;View #{article.title}&quot;, {:controller =&gt; 'designer', :action =&gt; 'view', :permalink =&gt; article.permalink}
+# then in your controller you can use
+@article = Article.find_by_permalink(params[:permalink])
+
+Reference: http://www.seoonrails.com/even-better-looking-urls-with-permalink_fu</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

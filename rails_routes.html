@@ -1,0 +1,48 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>http://api.rubyonrails.com/classes/ActionController/Routing.html
+
+TEST/UNIT:
+
+assert_routing: lets you test whether or not the route properly resolves into options.
+
+ def test_movie_route_properly_splits
+  opts = {:controller =&gt; &quot;plugin&quot;, :action =&gt; &quot;checkout&quot;, :id =&gt; &quot;2&quot;}
+  assert_routing &quot;plugin/checkout/2&quot;, opts
+ end
+
+
+assert_recognizes:  tests that an URL breaks into parameters properly.
+
+ def test_route_has_options
+  opts = {:controller =&gt; &quot;plugin&quot;, :action =&gt; &quot;show&quot;, :id =&gt; &quot;12&quot;}
+  assert_recognizes opts, &quot;/plugins/show/12&quot;
+ end
+
+
+In tests you can simply pass the URL or named route to get or post.
+ def send_to_jail
+   get '/jail'
+   assert_response :success
+   assert_template &quot;jail/front&quot;
+ end
+
+ def goes_to_login
+   get login_url
+   #...
+ end
+
+---- 
+ RSPEC:
+
+ it &quot;index should be landing page for companies&quot; do
+    route_for(:controller =&gt; &quot;companies&quot;, :action =&gt; &quot;index&quot;).should == '/companies'
+ end
+
+ it &quot;should be landing page for companies&quot; do
+    params_for('/companies').should == {:controller =&gt; &quot;companies&quot;, :action =&gt; &quot;index&quot;}
+ end
+
+ specify &quot;{:controller =&gt; 'sessions', :action =&gt; 'new'} from GET /login&quot; do 
+    params_from(&quot;/login&quot;, :method =&gt; :get).should == {:controller =&gt; &quot;sessions&quot;, :action =&gt; &quot;new&quot;} 
+ end</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

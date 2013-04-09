@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>administrate_me: A Rails plugin to provide support for common administration functions. http://github.com/insignia/administrate_me
+
+$   ruby script/plugin install git://github.com/insignia/administrate_me
+
+Copying asset files to the current project:
+$ rake admin:import_files
+
+Defining modules (tabs) for the app:
+
+class ApplicationController &lt; ActionController::Base
+  # Main definitions
+  set_module :products
+  set_module :categories
+  # Setting modules by request
+  def modules
+    set_module :users if current_user.has_role?('admin')
+  end
+end
+
+Making a controller work with administrate_me interfase:
+class Products &lt; ApplicationController
+  administrate_me do |a|
+    a.search :name
+  end
+end
+
+Generating view files for restful controller/model:
+$ ruby script/generate admin_view &lt;controller-name&gt;
+
+See README file for a step-by-step tutorial to the most basic app using this plugin.</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>to get direct access from vim to your cheat-sheets add something like this to 
+your .vimrc
+map &lt;F3&gt; :!cheat&lt;SPACE&gt;
+
+or
+
+com -nargs=* Cheat :r ! cheat &lt;args&gt;
+
+which lets you :Cheat sheet
+
+
+Alternatively, you can install the Cheat vim plugin:
+http://vim.sourceforge.net/scripts/script.php?script_id=2015
+
+which, besides offering the :Cheat command it also has tab completion for 
+cheat sheets names, the &lt;leader&gt;C shortcut to the :Cheat command as well 
+as searching for a cheat sheet based on the current keyword (e.g. if the 
+cursor is on a word like &quot;ambition&quot;, pressing &lt;leader&gt;ch will bring the 
+ambition cheatsheet).
+
+
+wonderful support for ruby within vim is available after
+$ sudo gem install vim-ruby
+just follow the instructions afterwards</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

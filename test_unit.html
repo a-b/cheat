@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Ruby - Test::Unit
+===============================================================================
+Basic Usage:
+
+    require 'test/unit'
+
+    class Test_SomethingToTest &lt; Test::Unit::TestCase
+      def setup
+        #will be run prior to each test
+      end
+
+      # Replace this with your real tests.
+      def test_truth
+        assert true
+      end
+    end
+
+
+Assertions:
+===============================================================================
+All assertions also take an optional argument of failure message.
+
+&gt; assert(boolean,[msg])	                
+  Ensures that the object/expression is true.
+
+&gt; assert_block([msg]) { block }
+  Most basic assertion
+
+&gt; assert_equal(obj1, obj2, [msg])
+  Ensures that obj1 == obj2 is true.
+
+&gt; assert_in_delta(expecting, actual, delta, [msg])
+  Ensures that the numbers expecting and actual are within delta of each other.
+                                                    
+&gt; assert_instance_of(class, obj, [msg])
+  Ensures that obj is of the class type.
+
+&gt; assert_kind_of(class, obj, [msg])
+  Ensures that obj is or descends from class.
+
+&gt; assert_match(regexp, string, [msg])
+  Ensures that a string matches the regular expression.
+
+&gt; assert_nil(obj, [msg])
+  Ensures that obj.nil? is true.
+
+&gt; assert_no_match(regexp, string, [msg])
+  Ensures that a string doesn’t matches the regular expression.
+                                          
+&gt; assert_not_equal(obj1, obj2, [msg])	  
+  Ensures that obj1 == obj2 is false.
+
+&gt; assert_not_nil(obj, [msg])
+  Ensures that obj.nil? is false.
+
+&gt; assert_not_same((obj1, obj2, [msg])
+  Ensures that obj1.equal?(obj2) is false.
+
+&gt; assert_nothing_raised(exception1, ...) { block }
+  Ensures that the given block doesn’t raise one of the given exceptions.
+                                                             
+&gt; assert_nothing_thrown([msg]) { block }
+  Passes if block does not throw anything                      
+
+&gt; assert_operator(obj1, operator, obj2, [msg])
+  Ensures that obj1.operator(obj2) is true.
+
+&gt; assert_raise(except1, except2, ...)  { block }
+  Ensures that the given block raises one of the given exceptions.
+
+&gt; assert_respond_to(obj, symbol, [msg])
+  Ensures that obj has a method called symbol.
+
+&gt; assert_same(obj1, obj2, [msg])
+  Ensures that obj1.equal?(obj2) is true.
+                                                        
+&gt; assert_send(array, [msg])
+  Ensures that executing the method listed in array[1] on the object in
+  array[0] with the parameters of array[2 and up] is true. This one is weird eh?
+
+&gt; assert_throws(symbol, [msg]) { block }
+  Ensures that the given block throws the symbol.
+                                          
+&gt; flunk([msg])
+  Ensures failure. This is useful to explicitly mark a test that isn’t 
+  finished yet.
+
+===============================================================================
+Updated by: Adam G.
+Updated at: 2010-04-22</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

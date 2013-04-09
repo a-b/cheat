@@ -1,0 +1,181 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>INSTALL
+=======
+
+$ gem install rspec
+
+RSPEC-RAILS
+===========
+
+  RAILS-3
+  =======
+
+    CONFIGURE THE GEMFILE
+    ======================
+    group :development, :test do
+      gem &quot;rspec-rails&quot;, &quot;~&gt; 2.0&quot;
+    end
+
+    INSTALL THE BUNDLE
+    ===============================
+    $ bundle install
+
+    BOOTSTRAP THE APP
+    ================= 
+    $ ./script/rails generate rspec:install
+          create  .rspec
+          create  spec
+          create  spec/spec_helper.rb
+          create  autotest
+          create  autotest/discover.rb
+
+  RAILS-2
+  =======
+
+    INSTALL
+    =======
+    $ gem install rspec-rails -v 1.3.3
+
+    BOOTSTRAP THE APP
+    =================
+    $ ./script/generate rspec
+        create  spec
+        create  spec/spec_helper.rb
+        create  spec/spec.opts
+        create  previous_failures.txt
+        create  script/spec_server
+        create  script/spec
+
+HOW TO USE
+==========
+
+  COMMAND LINE
+  =============
+rspec --color --format doc spec/widget_spec.rb
+
+  RAILS 3 (RSPEC 2)
+  =============
+./rails/generate model User
+rake -T spec # lists all rspec rake tasks
+rake spec # run all specs
+rake spec/models/mymodel_spec.rb # run a single spec file
+rake spec/models/mymodel_spec.rb:27 # run a single example or group on line 27
+
+  RAILS 2 (RSPEC 1)
+  =============
+./script/generate rspec_model User
+rake -T spec # lists all rspec rake tasks
+rake spec # run all specs
+rake spec SPEC=spec/models/mymodel_spec.rb SPEC_OPTS=&quot;-e \&quot;should do something\&quot;&quot; #run a single spec
+
+
+
+module UserSpecHelper
+  def valid_user_attributes
+    { :email =&gt; &quot;joe@bloggs.com&quot;,
+      :username =&gt; &quot;joebloggs&quot;,
+      :password =&gt; &quot;abcdefg&quot;}
+  end
+end
+
+
+describe &quot;A User (in general)&quot; do
+  include UserSpecHelper
+
+  before(:each) do
+    @user = User.new
+  end
+
+  it &quot;should be invalid without a username&quot; do
+    pending &quot;some other thing we depend on&quot;
+    @user.attributes = valid_user_attributes.except(:username)
+    @user.should_not be_valid
+    @user.should have(1).error_on(:username)
+    @user.errors.on(:username).should == &quot;is required&quot;
+    @user.username = &quot;someusername&quot;
+    @user.should be_valid
+  end
+end
+
+EXPECTATIONS
+=====================
+target.should satisfy {|arg| ...}
+target.should_not satisfy {|arg| ...}
+
+target.should equal &lt;value&gt;
+target.should_not equal &lt;value&gt;
+
+target.should be_close &lt;value&gt;, &lt;tolerance&gt;
+target.should_not be_close &lt;value&gt;, &lt;tolerance&gt;
+
+target.should be &lt;value&gt;
+target.should_not be &lt;value&gt;
+
+target.should predicate [optional args]
+target.should be_predicate [optional args]
+target.should_not predicate [optional args]
+target.should_not be_predicate [optional args]
+
+target.should be &lt; 6
+target.should == 5
+target.should be_between(1, 10)
+target.should_not == 'Samantha'
+
+target.should match &lt;regex&gt;
+target.should_not match &lt;regex&gt;
+
+target.should be_an_instance_of &lt;class&gt;
+target.should_not be_an_instance_of &lt;class&gt;
+
+target.should be_a_kind_of &lt;class&gt;
+target.should_not be_a_kind_of &lt;class&gt;
+
+target.should respond_to &lt;symbol&gt;
+target.should_not respond_to &lt;symbol&gt;
+
+lambda {a_call}.should raise_error
+lambda {a_call}.should raise_error(&lt;exception&gt; [, message])
+lambda {a_call}.should_not raise_error
+lambda {a_call}.should_not raise_error(&lt;exception&gt; [, message])
+lambda {a_call}.should change(instance, method).from(number).to(number)
+
+proc.should throw &lt;symbol&gt;
+proc.should_not throw &lt;symbol&gt;
+
+target.should include &lt;object&gt;
+target.should_not include &lt;object&gt;
+
+target.should have(&lt;number&gt;).things
+target.should have_at_least(&lt;number&gt;).things
+target.should have_at_most(&lt;number&gt;).things
+
+target.should have(&lt;number&gt;).errors_on(:field)
+
+expect { thing.approve! }.to change(thing, :status).
+    from(Status::AWAITING_APPROVAL).
+    to(Status::APPROVED)
+
+expect { thing.destroy }.to change(Thing, :count).by(-1)
+
+Mocks and Stubs
+===============
+user_mock = mock &quot;User&quot;
+user_mock.should_receive(:authenticate).with(&quot;password&quot;).and_return(true)
+user_mock.should_receive(:coffee).exactly(3).times.and_return(:americano)
+user_mock.should_receive(:coffee).exactly(5).times.and_raise(NotEnoughCoffeeException)
+
+people_stub = mock &quot;people&quot;
+people_stub.stub!(:each).and_yield(mock_user)
+people_stub.stub!(:bad_method).and_raise(RuntimeError)
+
+user_stub = mock_model(&quot;User&quot;, :id =&gt; 23, :username =&gt; &quot;pat&quot;, :email =&gt; &quot;pat@example.com&quot;)
+
+my_instance.stub!(:msg).and_return(value)
+MyClass.stub!(:msg).and_return(value)
+
+Examples (in the real world)
+
+============================
+http://madhatted.com/2008/7/10/rspec-real-world-testing
+presentation: http://kerryb.github.com/iprug-rspec-presentation/#31</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

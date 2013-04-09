@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>See: http://technoweenie.stikipad.com/plugins/show/User+Authentication
+
+Install:
+&gt;&gt; ruby script/plugin source http://svn.techno-weenie.net/projects/plugins
+&gt;&gt; ruby script/plugin install acts_as_authenticated
+
+Generate:
+&gt;&gt; ruby script/generate authenticated user account
+&gt;&gt; rake db:migrate
+
+To require logins for all actions, use this in your controllers:
+  before_filter :login_required
+
+To require logins for specific actions, use this in your controllers:
+  before_filter :login_required, :only =&gt; [ :edit, :update ]
+
+To skip this in a subclassed controller:
+  skip_before_filter :login_required
+
+Here are other available methods for your views and controllers:
+    * logged_in? – Returns true if the user is currently logged in.
+    * current_user – Returns an instance of the currently logged in user.
+
+You can override the #protect? method in your controller to only protect certain actions:
+
+  # don't protect the login and the about method
+  def protect?(action)
+    if ['login', 'about'].include?(action)
+       return false
+    else
+       return true
+    end
+  end
+
+You can also override #authorized? in your controller to restrict the actions based on the user:
+
+  # only allow nonbobs
+  def authorized?(user)
+    user.login != &quot;bob&quot; 
+  end</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

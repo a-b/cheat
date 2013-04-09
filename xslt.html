@@ -1,0 +1,174 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Functions
+---------
+
+Node Set Functions
+------------------
+number last()
+
+number position()
+
+number count(node-set)
+
+node-set id(object)
+
+string local-name(node-set?)
+
+string namespace-uri(node-set?)
+
+string name(node-set?)
+
+String Functions
+----------------
+
+
+# haystack = the string/nodeset/etc that the function is applied to
+# needle = something to be applied to the haystack (find, substring etc)
+
+string string(object?)
+
+string concat(string, string, string*)
+
+boolean starts-with(haystack, needle)
+
+boolean contains(haystack, needle)
+
+string substring-before(haystack, needle)
+
+string substring-after(haystack, needle)
+
+string substring(haystack, index, length?)
+
+number string-length(string?)
+
+string normalize-space(string?)
+
+string translate(haystack, from, to) # note: only chars, not words
+
+
+Boolean Functions
+-----------------
+
+boolean boolean(object)
+
+boolean not(object)
+
+boolean true()
+
+boolean false()
+
+boolean lang(string)
+
+
+Number Functions
+----------------
+
+number number(object?)
+
+number sum(node-set)
+
+number floor(number)
+
+number ceiling(number)
+
+number round(number) # &lt;0.5 -&gt; 0 ;; &gt;= 0.5 -&gt; 1.0
+
+
+--------
+Elements
+--------
+
+xsl:apply-imports
+
+xsl:apply-templates select=&quot;nodeset&quot; mode=&quot;qname&quot;
+
+xsl:attribute name=&quot;qname&quot; namespace=&quot;uri&quot; # must be directly after element
+
+xsl:attribute-set name=&quot;qname&quot; use-attribute-sets=&quot;qnames&quot;
+
+xsl:call-template name=&quot;qname&quot;
+
+xsl:choose
+
+xsl:comment
+
+xsl:copy use-attribute-sets=&quot;qnames&quot;
+
+xsl:copy-of select=&quot;expression&quot;
+
+xsl:decimal-format name=&quot;qname&quot; decimal-separator=&quot;char&quot; grouping-separator=&quot;char&quot; infinity=&quot;string&quot; minus-sign=&quot;char&quot; NaN=&quot;string&quot; percent=&quot;char&quot; per-mille=&quot;char&quot; zero-digit=&quot;char&quot; digit=&quot;char&quot; pattern-separator=&quot;char&quot;
+
+xsl:document href=&quot;uri&quot;
+
+xsl:element name=&quot;qname&quot; namspace=&quot;uri&quot; use-attribute-sets=&quot;qnames&quot;
+
+xsl:fallback
+
+xsl:for-each select=&quot;nodeset&quot;
+
+xsl:if test=&quot;boolean&quot;
+
+xsl:include href=&quot;uri&quot;
+
+xsl:import href=&quot;uri&quot;
+
+xsl:key name=&quot;qname&quot; match=&quot;pattern&quot; use=&quot;expression&quot;
+
+xsl:message terminate=&quot;yes|no&quot;
+
+xsl:namespace-alias result-prefix=&quot;prefix|#default&quot; stylesheet-prefix=&quot;prefix|#default&quot;
+
+xsl:number level=&quot;single|multiple|any&quot; count=&quot;pattern&quot; from=&quot;pattern&quot; value=&quot;number-expression&quot; format=&quot;string&quot; lang=&quot;nmtoken&quot; letter-value=&quot;alphabetical|traditional&quot; grouping-separator=&quot;char&quot; grouping-size=&quot;number&quot;
+
+xsl:otherwise
+
+xsl:output method=&quot;xml|html|text|qname&quot; version=&quot;string&quot; encoding=&quot;string&quot; omit-xml-declaration=&quot;yes|no&quot; doctype-public=&quot;string&quot; doctype-system=&quot;string&quot; standalone=&quot;yes|no&quot; indent=&quot;yes|no&quot; cdata-section-elements=&quot;qnames&quot; media-type=&quot;string&quot;
+
+xsl:param name=&quot;qname&quot; [select=&quot;expression&quot;]
+
+xsl:processing-instruction name=&quot;qname&quot;
+
+xsl:preserve-space elements=&quot;tokens&quot;
+
+xsl:sort select=&quot;string&quot; lang=&quot;string&quot; data-type=&quot;text|number|qname&quot; order=&quot;ascending|descending&quot; case-order=&quot;upper-first|lower-first&quot;
+
+xsl:strip-space elements=&quot;tokens&quot;
+
+xsl:stylesheet version=&quot;1.0&quot; id=&quot;id&quot; extension-element-prefixes=&quot;tokens&quot; exclude-result-prefixes=&quot;tokens&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform
+
+xsl:template match=&quot;pattern&quot; name=&quot;qname&quot; priority=&quot;number&quot; mode=&quot;qname&quot;
+
+xsl:text disable-output-escaping=&quot;yes|no&quot;
+
+xsl:value-of select=&quot;expression&quot; disable-output-escaping=&quot;yes|no&quot;
+
+xsl:variable name=&quot;qname&quot; select=&quot;expression&quot;
+
+xsl:when test=&quot;boolean&quot;
+
+xsl:with-param name=&quot;qname&quot; select=&quot;expression&quot;
+
+
+
+
+
+----
+
+Axis
+
+----
+
+ancestor:: 
+ancestor-or-self:: 
+attribute:: (@)
+child:: 
+descendant:: 
+descendant-or-self:: (//)
+following::
+following-sibling::
+namespace::
+parent:: (..)
+preceding::
+preceding-sibling::
+self:: (.)</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>;; cheat.el
+;; Time-stamp: &lt;2007-08-22 10:00:04 sjs&gt;
+;;
+;; Copyright (c) 2007 Sami Samhuri &lt;sami.samhuri@gmail.com&gt;
+;;
+;; See http://sami.samhuri.net/2007/08/10/cheat-from-emacs for updates.
+;;
+;; License
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License
+;; as published by the Free Software Foundation; either version 2
+;; of the License, or (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, write to the Free Software
+;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+;;
+;;
+;; Provide a handy interface to cheat.
+;; See http://cheat.errtheblog.com for details on cheat itself.
+;;
+;; sjs 2007.08.21
+;;  * Cache the list of cheat sheets, update it once a day (configurable).
+;;  * Strictly complete cheat sheet names.
+
+(defvar *cheat-host* &quot;cheat.errtheblog.com&quot;)
+(defvar *cheat-port* &quot;80&quot;)
+(defvar *cheat-uri* (concat *cheat-host* &quot;:&quot; *cheat-port*))
+
+(defvar *cheat-directory* &quot;~/.cheat&quot;)
+(defvar *cheat-sheets-cache-file* (concat *cheat-directory* &quot;/sheets&quot;))
+
+(defvar *cheat-last-sheet* nil
+  &quot;Name of the most recently viewed cheat sheet.&quot;)
+
+(defvar *cheat-sheet-history* nil
+  &quot;List of the most recently viewed cheat sheets.&quot;)
+
+(defconst +seconds-per-day+ 86400)
+
+(defvar *cheat-cache-ttl* +seconds-per-day+
+  &quot;The minimum age of a stale cache file, in seconds.&quot;)
+
+
+;;; interactive functions
+
+(defun cheat (name &amp;optional silent)
+  &quot;Show the specified cheat sheet.
+
+If SILENT is non-nil then do not print any output, but return it
+as a string instead.&quot;
+  (interactive (list (cheat-read-sheet-name)))
+  (if silent
+      (cheat-command-silent name)
+      (cheat-command name)))
+
+(defun cheat-sheets ()
+  &quot;List all cheat sheets.&quot;
+  (interactive)
+  (cheat-command &quot;sheets&quot;))
+
+(defun cheat-recent ()
+  &quot;Show recently added cheat sheets.&quot;
+  (interactive)
+  (cheat-command &quot;recent&quot;))
+
+(defun cheat-clear-cache ()
+  &quot;Clear the local cheat cache, located in ~/.cheat.&quot;
+  (interactive)
+  (cheat-command &quot;--clear-cache&quot;)
+  (make-directory *cheat-directory*))
+
+(defun cheat-versions (name)
+  &quot;Version history of the specified cheat sheet.&quot;
+  (interactive (list (cheat-read-sheet-name)))
+  (cheat-command name &quot;--versions&quot;))
+
+(defun cheat-diff (name version)
+  &quot;Show the diff between the given version and the current version of the named
+  cheat.
+If VERSION is of the form m:n then show the diff between versions m and n.&quot;
+  (interactive (list (cheat-read-sheet-name)
+                     (read-string &quot;Cheat version(s): &quot;)))
+  (cheat-command name &quot;--diff&quot; version))
+
+(defun cheat-add-current-buffer (name)
+  &quot;Add a new cheat with the specified name and the current buffer as the body.&quot;
+  (interactive &quot;sCheat name: \n&quot;)
+  (post-cheat name (buffer-string) t)
+    (if (interactive-p)
+        (print (concat &quot;Cheat added (&quot; name &quot;)&quot;))))
+
+(defun cheat-edit (name)
+  &quot;Fetch the named cheat and open a buffer containing its body.
+The cheat can be saved with `cheat-save-current-buffer'.&quot;
+  (interactive (list (cheat-read-sheet-name)))
+  (cheat-clear-cache name) ; make sure we're working with the latest version
+  (switch-to-buffer (get-buffer-create (cheat-&gt;buffer name)))
+  (insert (cheat-body name))
+  (if (interactive-p)
+      (print &quot;Run `cheat-save-current-buffer' when you're done editing.&quot;)))
+
+(defun cheat-save-current-buffer ()
+  &quot;Save the current buffer using the buffer name for the title and the contents
+  as the body.&quot;
+  (interactive)
+  (let ((name (buffer-&gt;cheat (buffer-name (current-buffer)))))
+    (post-cheat name (buffer-string))
+    ;; TODO check for errors and kill the buffer on success
+    (if (interactive-p)
+        (print (concat &quot;Cheat saved (&quot; name &quot;)&quot;)))
+    (cheat-clear-cache name)
+    (cheat name)))
+
+
+;;; helpers
+
+;; this is from rails-lib.el in the emacs-rails package
+(defun string-join (separator strings)
+  &quot;Join all STRINGS using SEPARATOR.&quot;
+  (mapconcat 'identity strings separator))
+
+(defun blank (thing)
+  &quot;Return T if THING is nil or an empty string, otherwise nil.&quot;
+  (or (null thing)
+      (and (stringp thing)
+           (= 0 (length thing)))))
+
+(defun cheat-command (&amp;rest rest)
+  &quot;Run the cheat command with the given arguments, display the output.&quot;
+  (interactive &quot;sArguments for cheat: \n&quot;)
+  (shell-command (concat &quot;cheat &quot; (string-join &quot; &quot; rest))))
+
+(defun cheat-command-to-string (&amp;rest rest)
+  &quot;Run the cheat command with the given arguments and return the output as a
+  string.  Display nothing.&quot;
+  (shell-command-to-string (concat &quot;cheat &quot; (string-join &quot; &quot; rest))))
+
+(defalias 'cheat-command-silent 'cheat-command-to-string)
+
+(defun cheat-read-sheet-name (&amp;optional prompt)
+  &quot;Get the name of an existing cheat sheet, prompting with completion and
+  history.
+
+The name of the sheet read is stored in *cheat-last-sheet* unless it was blank.&quot;
+  (let* ((default (when (blank prompt) *cheat-last-sheet*))
+         (prompt (or prompt
+                     (if (not (blank default))
+                         (concat &quot;Cheat name (default: &quot; default &quot;): &quot;)
+                         &quot;Cheat name: &quot;)))
+         (name (completing-read prompt
+                                (cheat-sheets-list t)
+                                nil
+                                t
+                                nil
+                                '*cheat-sheet-history*
+                                default)))
+    (when (not (blank name))
+      (setq *cheat-last-sheet* name))
+    name))
+
+(defun cheat-sheets-list (&amp;optional fetch-if-missing-or-stale)
+  &quot;Get a list of all cheat sheets.
+
+Return the cached list in *cheat-sheets-cache-file* if it's
+readable and `cheat-cache-stale-p' returns nil.
+
+When there is no cache or a stale cache, and
+FETCH-IF-MISSING-OR-STALE is non-nil, cache the list and then
+return it.
+
+Otherwise return nil.&quot;
+  (cond ((and (file-readable-p *cheat-sheets-cache-file*)
+              (not (cheat-cache-stale-p)))
+         (save-excursion
+           (let* ((buffer (find-file *cheat-sheets-cache-file*))
+                  (sheets (split-string (buffer-string))))
+             (kill-buffer buffer)
+             sheets)))
+        (fetch-if-missing-or-stale
+         (cheat-cache-list)
+         (cheat-sheets-list))
+        (t nil)))
+
+(defun cheat-fetch-list ()
+  &quot;Fetch a fresh list of all cheat sheets.&quot;
+  (nthcdr 3 (split-string (cheat-command-to-string &quot;sheets&quot;))))
+
+(defun cheat-cache-list ()
+  &quot;Cache the list of cheat sheets in *cheat-sheets-cache-file*.  Return the
+  list.&quot;
+  (when (not (file-exists-p *cheat-directory*))
+    (make-directory *cheat-directory*))
+  (save-excursion
+    (let ((buffer (find-file *cheat-sheets-cache-file*))
+          (sheets (cheat-fetch-list)))
+      (insert (string-join &quot;\n&quot; sheets))
+      (basic-save-buffer)
+      (kill-buffer buffer)
+      sheets)))
+
+(defun cheat-cache-stale-p ()
+  &quot;Non-nil if the cache in *cheat-sheets-cache-file* is more than
+  *cheat-cache-ttl* seconds old.q
+
+If the cache file does not exist then it is considered stale.
+
+Also see `cheat-cache-sheets'.&quot;
+  (or (null (file-exists-p *cheat-sheets-cache-file*))
+      (let* ((now (float-time (current-time)))
+             (last-mod (float-time (sixth (file-attributes
+             *cheat-sheets-cache-file*))))
+             (age (- now last-mod)))
+        (&gt; age *cheat-cache-ttl*))))
+
+(defun cheat-body (name)
+  &quot;Call out to Ruby to load the YAML and return just the body.&quot;
+  (shell-command-to-string
+   (concat &quot;ruby -ryaml -e '&quot;
+           &quot;puts YAML.load_file(File.expand_path(\&quot;~/.cheat/&quot;
+           name &quot;.yml\&quot;)).to_a[0][-1]'&quot;)))
+
+(defun url-http-post (url args)
+  &quot;Send ARGS to URL as a POST request.&quot;
+  (let ((url-request-method &quot;POST&quot;)
+        (url-request-extra-headers
+         '((&quot;Content-Type&quot; . &quot;application/x-www-form-urlencoded&quot;)))
+        (url-request-data
+         (concat (mapconcat (lambda (arg)
+                              (concat (url-hexify-string (car arg))
+                                      &quot;=&quot;
+                                      (url-hexify-string (cdr arg))))
+                            args
+                            &quot;&amp;&quot;)
+                 &quot;\r\n&quot;)))
+    ;; `kill-url-buffer'      to discard the result
+    ;; `switch-to-url-buffer' to view the results (debugging).
+    (url-retrieve url 'kill-url-buffer)))
+
+(defun kill-url-buffer (status)
+  &quot;Kill the buffer returned by `url-retrieve'.&quot;
+  (kill-buffer (current-buffer)))
+
+(defun switch-to-url-buffer (status)
+  &quot;Switch to the buffer returned by `url-retreive'.
+    The buffer contains the raw HTTP response sent by the server.&quot;
+  (switch-to-buffer (current-buffer)))
+
+(defun post-cheat (title body &amp;optional new)
+  (let ((uri (concat &quot;http://&quot; *cheat-uri* &quot;/w/&quot; (if new &quot;&quot; title))))
+    (url-http-post uri `((&quot;sheet_title&quot; . ,title)
+                         (&quot;sheet_body&quot;  . ,body)
+                         (&quot;from_gem&quot;    . &quot;1&quot;)))))
+
+(defun buffer-&gt;cheat (name)
+  (substring name 7 (- (length name) 1)))
+
+(defun cheat-&gt;buffer (name)
+  (concat &quot;*cheat-&quot; name &quot;*&quot;))
+
+(provide 'cheat)
+</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

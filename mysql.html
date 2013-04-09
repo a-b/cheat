@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>To create a database:
+
+$ mysqladmin -u root create &lt;database_name&gt;
+
+
+----
+To CREATE a database and assign rights to a NEW user.  Useful when starting a new Rails app, especially when you aren't using root:empty password.
+
+$ mysql --user=root
+msql&gt; CREATE DATABASE &lt;database_name&gt;;
+msql&gt; USE &lt;database_name&gt;;
+msql&gt; GRANT ALL PRIVILEGES ON *.* TO '&lt;new_user&gt;'@'localhost' IDENTIFIED BY '&lt;new_user_password&gt;' WITH GRANT OPTION;
+msql&gt; quit;
+
+
+----
+To DELETE a database:
+
+msql&gt; DROP DATABASE &lt;database_name&gt;;
+
+
+---
+To DELETE a row
+
+msql&gt; DELETE FROM MYTABLE where &lt;column_name&gt;=1;
+
+
+----
+Show databases, connect, show tables and table schema
+
+msql&gt; SHOW DATABASES;
+msql&gt; CONNECT &lt;database_name&gt;;
+msql&gt; SHOW TABLES;
+msql&gt; DESC &lt;table_name&gt;;
+
+
+----
+To create and grant all privileges to a user
+
+mysql&gt; grant all privileges on some_db.* to 'someuser'@'localhost' identified by 'somepassword';
+mysql&gt; flush privileges;
+
+
+----
+To SET a user password
+
+mysql&gt; use mysql;
+mysql&gt; update user set Password = PASSWORD('&lt;password&gt;') where host='&lt;host_name&gt;' and user='&lt;user_name&gt;';
+mysql&gt; flush privileges;
+mysql&gt; exit
+$ mysqladmin -uroot -p&lt;password&gt; reload
+
+
+----
+To rename a column
+
+mysql&gt; ALTER TABLE &lt;table_name&gt; change &lt;old_col_name&gt; &lt;new_col_name&gt; &lt;data_type&gt;;
+
+
+----
+To dump a database into an sql-text file
+
+$ mysqldump --opt -u username -p database &gt; database_backup.sql
+
+
+---
+To load a dump file into a database
+
+$ mysql -u username -p database &lt; dump_file.sql
+
+
+----
+To reset the root password to the original empty password:
+
+Use the commandline tool mysqladmin 
+  - the trick is to use 2 single-quotes (ticks) to specify an empty password:
+
+Linux:
+  Note: you probably need to run this from the mysql bin dir:
+$ cd /usr/local/mysql/bin
+$ ./mysqladmin -uroot -p&lt;existing_password&gt; password ''
+
+Windows: 
+  Note: Use 2 double-quotes (windows doesn't trim out the single-quotes).  
+  If you ran the Linux version ('') your password is now two single-quotes.
+&gt; mysqladmin -uroot -p&lt;existing_password&gt; password &quot;&quot;
+
+To be prompted for password:
+  omit &lt;existing_password&gt;, but include the -p arg.
+
+
+----
+Display as table  
+mysql&gt; select * from queries order by id desc limit 1 \G</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

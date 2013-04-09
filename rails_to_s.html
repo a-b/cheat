@@ -1,0 +1,20 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>&gt;&gt; 3.days.ago.to_s(:db)
+
+Formats:
+  :db
+    &quot;%Y-%m-%d %H:%M:%S&quot; (ie: &quot;2006-12-04 19:00:26&quot;)
+  :long
+    &quot;%B %d, %Y %H:%M&quot; (ie: &quot;December 04, 2006 19:00&quot;)
+  :rfc822
+    &quot;%a, %d %b %Y %H:%M:%S %z&quot; (ie: &quot;Mon, 04 Dec 2006 19:00:26 -0700&quot;)
+  :short
+    &quot;%d %b %H:%M&quot; (ie: &quot;04 Dec 19:00&quot;)
+  :time
+    &quot;%H:%M&quot; (ie: &quot;19:00&quot;)
+
+Add your own:
+  Time::DATE_FORMATS[:mine] = '%Y%m%d%M%S'
+   &gt;&gt; Time.new.to_s(:mine)
+   =&gt; &quot;200612040026&quot;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

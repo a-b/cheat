@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>**/* 	Picks out all files and directories, recursively.
+***/*	Ditto, following symlinks
+*	Any string, including the null string.
+?	Any character.
+[...]	Any of the enclosed characters. Ranges of characters can be specified by separating two characters by a -.
+[^...]	Inverse
+[!...]	Inverse
+&lt;x-y&gt;	Any number in the range x to y, inclusive. Either can be omitted.
+^x	Anything except the pattern x.
+x|y	Either x or y.
+
+x#	Zero or more occurrences of the pattern x.
+x##	One or more occurrences of the pattern x.
+
+(.) 	Files only
+(/)     Directories only
+(@)     Symlinks only
+(x)     Executables only
+(r)     Readable files only
+(w)     Writable files only
+(W)     World-writable files
+(U)     Owned by you
+		
+	dos2unix **/*~*.(gif|png|jpg)(.)     # ~ excludes
+		
+	dos2unix (#i)**/*~*.(gif|png|jpg)(.) # case-insensitive
+
+	ls =bob	                    # Lists file anywhere in $PATH
+
+	ls **/some_file             # Lists file under current directory   
+	zargs -- **/*(.) -- ls -l   # Ditto</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>assert_tag(*arg)
+
+Asserts that there is a tag/node/element in the body of the response that meets all of the given conditions. The conditions parameter must be a hash of any of the following keys (all are optional):
+
+    * :tag: the node type must match the corresponding value
+    * :attributes: a hash. The node‘s attributes must match the corresponding values in the hash.
+    * :parent: a hash. The node‘s parent must match the corresponding hash.
+    * :child: a hash. At least one of the node‘s immediate children must meet the criteria described by the hash.
+    * :ancestor: a hash. At least one of the node‘s ancestors must meet the criteria described by the hash.
+    * :descendant: a hash. At least one of the node‘s descendants must meet the criteria described by the hash.
+    * :sibling: a hash. At least one of the node‘s siblings must meet the criteria described by the hash.
+    * :after: a hash. The node must be after any sibling meeting the criteria described by the hash, and at least one sibling must match.
+    * :before: a hash. The node must be before any sibling meeting the criteria described by the hash, and at least one sibling must match.
+    * :children: a hash, for counting children of a node. Accepts the keys:
+          o :count: either a number or a range which must equal (or include) the number of children that match.
+          o :less_than: the number of matching children must be less than this number.
+          o :greater_than: the number of matching children must be greater than this number.
+          o :only: another hash consisting of the keys to use to match on the children, and only matching children will be counted.
+    * :content: the textual content of the node must match the given value. This will not match HTML tags in the body of a tag—only text.
+
+Conditions are matched using the following algorithm:
+
+    * if the condition is a string, it must be a substring of the value.
+    * if the condition is a regexp, it must match the value.
+    * if the condition is a number, the value must match number.to_s.
+    * if the condition is true, the value must not be nil.
+    * if the condition is false or nil, the value must be nil.
+
+Examples
+
+  # Assert that there is a &quot;span&quot; tag
+  assert_tag :tag =&gt; &quot;span&quot;
+
+  # Assert that there is a &quot;span&quot; tag with id=&quot;x&quot;
+  assert_tag :tag =&gt; &quot;span&quot;, :attributes =&gt; { :id =&gt; &quot;x&quot; }
+
+  # Assert that there is a &quot;span&quot; tag using the short-hand
+  assert_tag :span
+
+  # Assert that there is a &quot;span&quot; tag with id=&quot;x&quot; using the short-hand
+  assert_tag :span, :attributes =&gt; { :id =&gt; &quot;x&quot; }
+
+  # Assert that there is a &quot;span&quot; inside of a &quot;div&quot;
+  assert_tag :tag =&gt; &quot;span&quot;, :parent =&gt; { :tag =&gt; &quot;div&quot; }
+
+  # Assert that there is a &quot;span&quot; somewhere inside a table
+  assert_tag :tag =&gt; &quot;span&quot;, :ancestor =&gt; { :tag =&gt; &quot;table&quot; }
+
+  # Assert that there is a &quot;span&quot; with at least one &quot;em&quot; child
+  assert_tag :tag =&gt; &quot;span&quot;, :child =&gt; { :tag =&gt; &quot;em&quot; }
+
+  # Assert that there is a &quot;span&quot; containing a (possibly nested)
+  # &quot;strong&quot; tag.
+  assert_tag :tag =&gt; &quot;span&quot;, :descendant =&gt; { :tag =&gt; &quot;strong&quot; }
+
+  # Assert that there is a &quot;span&quot; containing between 2 and 4 &quot;em&quot; tags
+  # as immediate children
+  assert_tag :tag =&gt; &quot;span&quot;,
+             :children =&gt; { :count =&gt; 2..4, :only =&gt; { :tag =&gt; &quot;em&quot; } }
+
+  # Get funky: assert that there is a &quot;div&quot;, with an &quot;ul&quot; ancestor
+  # and an &quot;li&quot; parent (with &quot;class&quot; = &quot;enum&quot;), and containing a
+  # &quot;span&quot; descendant that contains text matching /hello world/
+  assert_tag :tag =&gt; &quot;div&quot;,
+             :ancestor =&gt; { :tag =&gt; &quot;ul&quot; },
+             :parent =&gt; { :tag =&gt; &quot;li&quot;,
+                          :attributes =&gt; { :class =&gt; &quot;enum&quot; } },
+             :descendant =&gt; { :tag =&gt; &quot;span&quot;,
+                              :child =&gt; /hello world/ }</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

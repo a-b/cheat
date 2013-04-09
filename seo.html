@@ -1,0 +1,215 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>This is a text conversion of &quot;The Web Developer's SEO Cheat Sheet&quot;.
+
+You can find the original article and cheat sheet, by Danny Dover, here: 
+  http://www.seomoz.org/blog/the-web-developers-seo-cheat-sheet
+
+====== Important SEO HTML tags ======
+
+  ==== Title Tag ====
+    &lt;head&gt;
+      &lt;title&gt;Keyword&lt;/title&gt;
+    &lt;/head&gt;
+
+  ==== H1, H2, H3 ====
+    &lt;h1&gt;Most Important&lt;/h1&gt;
+    &lt;h2&gt;Second Most Important&lt;/h2&gt;
+    &lt;h3&gt;Third Most Important&lt;/h3&gt;
+
+  ==== Bold, Strong (Same Worth) ====
+    &lt;b&gt;Keyword&lt;/b&gt;
+    &lt;strong&gt;Keyword&lt;/strong&gt;
+
+  ==== Image (XHTML) ====
+    &lt;img src=&quot;keyword.jpg&quot; alt=&quot;keyword&quot; /&gt;
+
+  ==== Hyperlink ====
+    &lt;a href=&quot;http://mysite.com/webpage.html&quot; title=&quot;keyword&quot;&gt;Keyword in Anchor Text&lt;/a&gt;
+
+  ==== Hyperlink (No Followed) ====
+    &lt;a href=&quot;http://mysite.com/webpge.html&quot; title=&quot;keyword&quot; rel=&quot;nofollow&quot;&gt;Keyword in Anchor Text&lt;/a&gt;
+
+  ====== Recommended Title Tag Syntax ======
+
+    Keyword &lt; Category | Website Title
+
+  ====== Common Canonical Homepage Issue ======
+
+    To condense the four default homepages into one homepage, use 301 redirect (See next section) to correct for 
+    erroneous incoming links and make all internal links point to your domain using the syntax 'http://mysite.com/'.
+
+    Always include trailing &quot;/&quot; on folders.
+
+      ==== Bad ====
+        http://www.mysite.com
+        http://mysite.com
+        http://www.mysite.com/index.xhtml
+        http://mysite.com/index.xhtml
+        http://www.mysite.com/index.html
+        http://mysite.com/index.html
+
+      ==== Good ====
+        http://mysite.com/
+
+  ====== 301 Redirect for Apache ======
+
+    Write to a file called '.htaccess'.  
+    The file is named only as an extension.
+    Hidden files must be viewable in operating system.  
+    mod_rewrite must be enabled.
+
+      ----
+
+        Redirect 301 /oldpage.html http://newdomain.com/newpage.html
+
+        Redirect single file or directory to a new file or directory on a different domain
+
+      ----
+
+        RewriteEngine on
+        RewriteCond %{HTTP_HOST} ^mysite.com [NC]
+        RewriteRule ^(.*)$ http://mysite.com/$1 [L,R=301]
+
+        Redirect http://mysite.com to http://mysite.com
+        Affects entire domain.
+
+      ----
+
+        Entire site:
+        Redirect 301 / http://newdomain.com/
+        Redirect permanent /old http://newdomain.com/new
+
+        Redirect entire domain to a new domain as either a 301 (recommended) or 302
+
+  ====== Search Engine Indexing Limits ======
+    *Does not apply to websites with significant authority
+
+    ==== Page File Size ====
+      No more than 150 kilobytes (Before Images, CSS and other Attachments)
+
+    ==== Amount of links ====
+      No more than 100 unique links per page
+
+    ==== Title Tag ====
+      No more than 70 characters
+
+    ==== Meta Description ====
+      No more than 155 characters
+
+    ==== Parameters in URL ====
+      No more than 2
+
+      === Bad Example ===
+        http://www.mysite.com/brands.php?object=1&amp;type=2&amp;kind=3&amp;node=5&amp;arg=6
+
+      === Good Example ===
+        http://mysite.com/brands.php?nike
+
+    ==== Depth of URL ====
+      No more than 4
+
+      === Bad Example ===
+        http://www.mysite.com/people/places/things/noun/danny/car
+
+      === Good Example ===
+        http://mysite.com/people/danny/
+
+  ====== Important Search Engine Robots ======
+
+    ==== Google Search ====   
+      Googlebot/2.1 ( http://www.google.com/bot.html)
+      Googlebot/2.1 ( http://www.googlebot.com/bot.html)
+
+    ==== Google Image Search ==== 
+      Image Search Googlebot-Image/1.0
+      Image Search Googlebot-Image/1.0 ( http://www.googlebot.com/bot.html)
+
+    ==== MSN Search ==== 
+      msnbot/x.xx ( http://search.msn.com/msnbot.htm)
+      MSNBOT/0.xx (http://search.msn.com/msnbot.htm) 
+
+    ==== MSN Media Search Robot ==== 
+      msnbot-media/1.0 (+http://search.msn.com/msnbot.htm)
+
+    ==== Windows Live Product Search ==== 
+      msnbot-Products/1.0 (+http://search.msn.com/msnbot.htm) 
+
+    ==== Microsoft Search for Mobiles ==== 
+      MSNBOT_Mobile MSMOBOT Mozilla/2.0 (compatible; MSIE 4.02; Windows CE; Default)
+
+    ==== Alexa / The Internet Archive ==== 
+      ia_archiver
+      ia_archiver-web.archive.org
+      ia_archiver/1.6
+
+    ==== Yahoo Blog Search ==== 
+      Yahoo-Blogs/v3.9 (compatible; Mozilla 4.0; MSIE 5.5; http://help.yahoo.com/help/us/ysearch/crawling/crawling-02.html
+
+    ==== Yahoo Multimedia Search ==== 
+      Yahoo-MMAudVid/1.0 (mms dash mmaudvidcrawler dash support at yahoo dash inc dot com)
+
+    ==== Yahoo Product Search ====
+      YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; http://help.yahoo.com/help/us/shop/merchant/)
+
+    ==== Yahoo Product Search ==== 
+      YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; http://search.yahoo.com/yahooseeker.html)
+
+    ==== Yahoo Product Search ==== 
+      YahooSeeker/1.1 (compatible; Mozilla 4.0; MSIE 5.5; http://help.yahoo.com/help/us/shop/merchant/)
+
+    ==== Ask/Teoma Search ==== 
+      Mozilla/2.0 (compatible; Ask Jeeves)
+
+    ==== Ask/Teoma Search ==== 
+      Mozilla/2.0 (compatible; Ask Jeeves/Teoma)
+
+    ==== Ask/Teoma Search ==== 
+      Mozilla/2.0 (compatible; Ask Jeeves/Teoma; http://about.ask.com/en/docs/about/webmasters.shtml)
+
+
+
+  ====== Common Robot Traps ======
+
+    * Input forms
+    * Session IDs in URL
+    * Pages Restricted by Cookies
+    * Frames
+    * Logins
+
+  ====== Robots.txt Syntax ======
+
+    User-agent: *
+    Disallow: /privatefolder
+    Disallow: /privatefile.html
+
+    User-agent: Googlebot/2.1
+    Disallow: /nogoogle.html
+    Sitemap: http://mysite.com/sitemap.xml
+
+  ====== Robots Meta Tag ======
+    &lt;meta name=&quot;ROBOT NAME&quot; content=&quot;ARGUMENTS&quot; /&gt;
+
+    ROBOT NAME can be either &quot;robots&quot; for all robots or the user-agent of a specific robot.
+    See the robot user-agent list.
+
+  ====== Sitemap Syntax ======
+
+    &lt;?xml version =&quot;1.0&quot; encoding='UTF-8'?&gt;
+    &lt;urlset xmins='http://www.sitemaps.org/schemas/sitemap/0.9'&gt;
+      &lt;url&gt;
+        &lt;loc&gt;http://mysite.com&lt;/loc&gt;
+        &lt;lastmod&gt;1987-05-25&lt;/lastmod&gt;
+        &lt;changefreq&gt;monthly&lt;/changefreq&gt;
+        &lt;priority&gt;0.8&lt;/priority&gt;
+      &lt;/url&gt;
+    &lt;/urlset&gt;
+
+    ==== Default Locations Search Engines Look for Sitemaps ====
+      http://mysite.com/sitemap.xml
+      http://mysite.com/sitemap.xml.gz
+      http://mysite.com/sitemap.gz
+
+      Visit http://xml-sitemaps.com/ for a free sitemap
+
+http://www.secureholes.blogspot.com</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Query#to_sql
+&gt;&gt; User.select { |m| m.name == 'jon' }.to_sql
+=&gt; &quot;SELECT * FROM users WHERE users.name = 'jon'&quot;
+
+Query#to_hash
+&gt;&gt; User.select { |m| m.name == 'jon' }.to_hash
+=&gt; {:conditions=&gt;&quot;users.name = 'jon'&quot;}
+
+Equality
+
+User.select { |m| m.name == 'jon' }
+User.select { |m| m.name != 'jon' }
+User.select { |m| m.name == 'jon' &amp;&amp; m.age == 21 }
+User.select { |m| (m.name == 'jon' || m.name == 'rick') &amp;&amp; m.age == 21 }
+
+Associations
+
+User.select { |u| u.email == 'chris@ozmm.org' &amp;&amp; u.profile.name == 'chris wanstrath' }.map(&amp;:title)
+
+Comparisons
+
+User.select { |m| m.age &lt; 21 }.to_sql
+User.select { |m| [1, 2, 3, 4].include? m.id }
+
+LIKE and REGEXP
+
+User.select { |m| m.name =~ 'chri%' }
+User.select { |m| m.name !~ 'chris' }
+User.select { |m| !(m.name =~ 'chris') }
+User.select { |m| m.name =~ /chris/ }
+
+Detect
+
+User.detect { |m| m.name == 'chris' }
+
+Limits
+
+User.select { |m| m.name == 'jon' }.first
+User.select { |m| m.name == 'jon' }.first(5)
+User.select { |m| m.name == 'jon' }[10, 20]
+User.select { |m| m.name == 'jon' }[10..20]
+
+Sort
+
+User.select { |m| m.name == 'jon' }.sort_by { |m| m.name }
+User.select { |m| m.name == 'jon' }.sort_by { |m| [ m.name,  -m.age ] }
+User.select { |m| m.name == 'jon' }.sort_by { |m| -m.profiles.title }
+User.select { |m| m.name == 'jon' }.sort_by { rand }
+
+Count
+
+User.select { |m| m.name == 'jon' }.size
+
+Other
+
+
+User.any? { |m| m.name == 'jon' }
+User.all? { |m| m.name == 'jon' }
+User.select { |m| m.name == 'jon' }.empty?
+User.select { |m| m.name.downcase =~ 'jon%' }.to_sql</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

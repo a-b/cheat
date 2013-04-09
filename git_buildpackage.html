@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Importing
+---------
+
+git import-dsc &lt;package&gt;.dsc
+
+Updating
+--------
+
+git import-orig -u &lt;version&gt; &lt;source&gt;.tar.gz
+
+Releasing
+---------
+
+git dch --release
+git dch --snapshot
+git dch --snapshot --auto
+
+Building
+--------
+
+git buildpackage --git-ignore-new
+git buildpackage --git-tag
+
+Creating
+--------
+
+$ mkdir package-0.1
+$ cd package-0.1
+$ git init
+
+$ git import-orig -u 0.1 ../package-0.1.tar.gz
+$ dh_make</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

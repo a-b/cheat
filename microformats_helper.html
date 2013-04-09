@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>hAtom
+
+&lt;% render_hfeed(options?) do ... end %&gt;
+&lt;% render_hentry(id, options?) do ... end %&gt;
+
+  Render ol with class hfeed, or li with the class hentry and id. Options passed to HTML element.
+
+&lt;%= hentry_title(title?, options?) { ... } %&gt;
+&lt;%= hentry_content(content?, options?) { ... } %&gt;
+
+  Returns header with class entry-title, or element with class entry-content. Content pass as argument or returned from block, options passed to wrapping element. Use :level to specify header level (default 2), :tag to specify content element (default p).
+
+Other
+
+&lt;%= hcard(values) %&gt;
+
+  :fn           Formal name
+  :given-name   Given name (alternative to :fn)
+  :family-name  Family name (alternative to :fn)
+  :url          URL of person/entity (results in link)
+  :photo        URL of photo, or hash of options for img tag
+  :html         Options to pass to wrapper element
+
+&lt;%= Time.microformat(type, format?) { ... } %&gt;
+
+  Formats time using the date/time pattern, returns abbr element. First argument is date/time type (e.g. :published). Human formatted: using second argument (see strftime), result of block, or self.to_s.</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

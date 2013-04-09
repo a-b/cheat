@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Primary Commands
+d  delete
+y  copy
+c  change
+r  replace
+p  paste
+u  undo
+a  append
+o  new line
+x  delete char
+control-R  redo
+
+Edit
+dd dw d4j  delete line, delete word, delete 5 lines
+yy yw  copy line, copy word
+cw change word
+p  paste a line
+:s/a/b/  replace a with b
+
+Navigation
+h j k l  left, down, up right, one character/line at a time
+w b e  next word, back word, end of word
+W B E  same, but ignores punctuation
+gg  beginning of file
+G  end of File
+0  first column in a line
+^  beginning of line
+$  end of line
+/  enter a string, searches for string
+control-b  page up
+control-f  page down
+100G - goto line 100
+
+Modes
+Escape  command mode
+i  insert mode
+v  visual mode
+V  visual (line) mode
+
+File
+:u undo
+:q quit
+:q! force quit
+:wq write, quit
+:/&lt;string&gt;  Search for next occurrence of &lt;string&gt;
+:?&lt;string&gt; Search for previous occurrence of &lt;string&gt;
+:%s/&lt;str_a&gt;/&lt;str_b&gt;/g Replace all str_a with str_b in current buffer
+
+Remote files:
+vi scp://username@password:host/path/to/file/ open
+:e  scp://username@password:host/path/to/file/ open inside vi
+:let g:netrw_scp_cmd='scp -i private_key.pub' to use private keys
+
+Recover
+:rec &lt;swapfile&gt;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

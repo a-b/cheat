@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>REST
+$ ruby script/generate scaffold_resource Model columnname:columntype --skip-migration
+
+
+The Payoff:
+ * You get a starter set of functional tests for your controller. Keep your tests passing and you'll know your REST design is still intact.
+ * A controller named Products with all of the canonical CRUD actions defined for you with boilerplate code. Comments with the routing paths (url pattern + http verb) to invoke that action. An HTTP XML API defined.
+ * Boilerplate views for four of the CRUD actions (you'll just need to fill in your model's details in the forms).
+ * A migration script. Define your table here, then run rake db:migrate.
+ * map.resources :models line at the top of routes.rb.</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

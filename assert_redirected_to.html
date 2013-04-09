@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre># 'cheat assertions' for the rest
+
+assert_redirected_to(options = {}, message=nil)
+
+Assert that the redirection options passed in match those of the redirect called in the latest action. This match can be partial, such that assert_redirected_to(:controller =&gt; &quot;weblog&quot;) will also match the redirection of redirect_to(:controller =&gt; &quot;weblog&quot;, :action =&gt; &quot;show&quot;) and so on.
+
+Examples
+
+  # assert that the redirection was to the &quot;index&quot; action on the WeblogController
+  assert_redirected_to :controller =&gt; &quot;weblog&quot;, :action =&gt; &quot;index&quot;
+
+  # assert that the redirection was to the named route login_url
+  assert_redirected_to login_url</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

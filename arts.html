@@ -1,0 +1,29 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>ARTS is Another RJS Test System
+
+For a complete tutorial, see http://glu.ttono.us/articles/2006/05/29/guide-test-driven-rjs-with-arts.
+
+Usage:
+  assert_rjs :alert, 'Hi!'
+  assert_rjs :assign, 'a', '2'
+  assert_rjs :call, 'foo', 'bar', 'baz'
+  assert_rjs :draggable, 'draggable_item'
+  assert_rjs :drop_receiving, 'receiving_item'
+  assert_rjs :hide, &quot;post_1&quot;, &quot;post_2&quot;, &quot;post_3&quot;
+  assert_rjs :insert_html, :bottom, 'posts'
+  assert_rjs :redirect_to, :action =&gt; 'list'
+  assert_rjs :remove, &quot;post_1&quot;, &quot;post_2&quot;, &quot;post_3&quot;
+  assert_rjs :replace, 'completely_replaced_div'
+  assert_rjs :replace, 'completely_replaced_div', '&lt;p&gt;This replaced the div&lt;/p&gt;'
+  assert_rjs :replace, 'completely_replaced_div', /replaced the div/
+  assert_rjs :replace_html, 'replaceable_div', &quot;This goes inside the div&quot;
+  assert_rjs :show, &quot;post_1&quot;, &quot;post_2&quot;, &quot;post_3&quot;
+  assert_rjs :sortable, 'sortable_item'
+  assert_rjs :toggle, &quot;post_1&quot;, &quot;post_2&quot;, &quot;post_3&quot;
+  assert_rjs :visual_effect, :highlight, &quot;posts&quot;, :duration =&gt; '1.0'
+
+For the square bracket syntax (page['some_id'].toggle) use :page followed by the id and then subsequent method calls. Assignment requires a '=' at the end of the method name followed by the value.
+
+  assert_rjs :page, 'some_id', :toggle
+  assert_rjs :page, 'some_id', :style, :color=, 'red'</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

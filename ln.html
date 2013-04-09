@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>To create a symbolic link:
+
+  $ ln -s original/file new/symbolic/link
+
+
+For example, assuming you are in a Rails app:
+
+  $ ln -s ../vendor/assets/swf/swf.file public
+  OR
+  $ ln -s ../vendor/assets/swf/swf.file public/swf.file
+
+would create a new symbolic link of public/swf.file to vendor/assets/swf/swf.file. Had I not specified the .., then the link would have not worked.
+
+
+To test that you have the paths correct, you can do 
+
+  $ file new/symbolic/link
+
+If you 'broken symbolic link to ...' in the output, make sure that you specified the original file path relative to the directory that the file will live in.
+</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

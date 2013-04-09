@@ -1,0 +1,41 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Element#css_path
+
+ doc.at(&quot;div &gt; div:nth(1)&quot;).css_path
+   #=&gt; &quot;div &gt; div:nth(1)&quot; 
+ doc.at(&quot;#header&quot;).css_path
+   #=&gt; &quot;#header&quot; 
+
+Element#xpath
+
+ doc.at(&quot;div &gt; div:nth(1)&quot;).xpath
+   #=&gt; &quot;/div/div:eq(1)&quot; 
+ doc.at(&quot;#header&quot;).xpath
+   #=&gt; &quot;//div[@id='header']&quot; 
+
+Element#swap
+
+ doc = Hpricot(&quot;That's my &lt;b&gt;spoon&lt;/b&gt;, Tyler.&quot;)
+ doc.at(&quot;b&quot;).swap(&quot;&lt;i&gt;fork&lt;/i&gt;&quot;)
+ doc.to_html
+   #=&gt; &quot;That's my &lt;i&gt;fork&lt;/i&gt;, Tyler.&quot; 
+
+Element#next_sibling, Element#previous_sibling
+
+ (doc/:h3).each do |h3|
+   while ele = h3.next_sibling
+     ary &lt;&lt; ele   # stuff away all the elements under the h3
+   end
+ end
+
+###########################################
+
+elements = doc.search(&quot;a&quot;)
+elements = doc.search(&quot;a.class&quot;)
+elements = doc.search(&quot;a#ID&quot;)
+elements = doc.search(&quot;body &gt; table &gt; a&quot;)
+elements = doc.search(&quot;a[@href='http://hoodwink.d/']&quot;)
+element  = doc.at(&quot;a#ID&quot;) == doc.search(&quot;a#ID&quot;).first
+attribute = doc.at(&quot;body&quot;)['onload'] == doc.at(&quot;body&quot;)[:onload]
+elements = doc.search(&quot;table &gt; a#ID&quot;) == (doc/&quot;table &gt; a#ID&quot;) == (doc/&quot;table/a#ID&quot;) == (doc/:table/:a#ID)</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>** Adding a submodule to a superproject.
+
+git submodule add &lt;repository&gt;
+  Add the given repository as a submodule to the current git project.
+
+** After cloning the superproject, the submodule directories will exist, but they will be empty.
+
+git submodule status
+  Show the status of the submodules.
+
+** Actually pulling down the submodules is a two-step process.
+
+git submodule init
+
+git submodule update
+
+** Gotcha: submodules do not checkout master by default, it checks out a specific commit relative to the superproject (somewhat like a tag).  To do any work, make sure you checkout master or another branch.
+
+$ cd my_submodule
+$ git branch
+* (no branch)
+  master
+$ git checkout master
+
+** Gotcha: when publishing (pushing) make sure you publish the submodule changes first, followed by the superproject.  Otherwise others will have problems cloning the repository.
+
+$ git commit -m &quot;Updated the my_submodule from within the superproject.&quot;
+$ git push
+$ cd ..
+$ git add my_submodule
+$ git commit -m &quot;Updated my_submodule.&quot;
+$ git push
+
+** Changing submodules URL
+
+    * Fork/create your own version of the submodule in question
+    * Remove references to the existing submodule in .git/config, .gitmodules and nuke the submodule directory
+    * Commit
+    * Add the new submodule URL
+    * Commit
+    * Make changes in your submodule
+    * Commit changes in the submodule (not the parent project)
+    * Commit the changes in the parent project (otherwise you’ll only get the old version of the submodule in future pulls)
+    * Enjoy the hair you didn’t have to rip from your scalp
+</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

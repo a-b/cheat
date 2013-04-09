@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Installation
+------------
+sudo gem install ruby-prof
+
+
+Usage
+-----
+Without changing your code:
+
+  $ ruby-prof your_ruby_app.rb
+
+Or, inside your code:
+
+  require 'ruby-prof'
+
+  # Profile the code
+  RubyProf.start
+  ...
+  [code to profile]
+  ...
+  result = RubyProf.stop
+
+  # Print a flat profile to text
+  printer = RubyProf::FlatPrinter.new(result)
+  printer.print(STDOUT, 0)
+
+Or, use a block to tell ruby-prof what to profile:
+
+  require 'ruby-prof'
+
+  # Profile the code
+  result = RubyProf.profile do
+    ...
+    [code to profile]
+    ...
+  end
+
+  # Print a graph profile to text
+  printer = RubyProf::GraphPrinter.new(result)
+  printer.print(STDOUT, 0)
+
+Or, the old way:
+
+  require 'unprof'
+
+
+Setting Clock Modes
+-------------------
+In your code:
+
+  RubyProf.clock_mode = RubyProf::PROCESS_TIME
+  RubyProf.clock_mode = RubyProf::WALL_TIME
+  RubyProf.clock_mode = RubyProf::CPU_TIME
+
+Or, via environment variable:
+
+  export RUBY_PROF_CLOCK_MODE=(process|wall|cpu)
+
+
+Printing Graphs
+---------------
+Available printer types:
+
+  RubyProf::FlatPrinter - flat report in text format
+  RubyProf::GraphPrinter - call graph report in text format
+  RubyProf::GraphHtmlPrinter - call graph report in HTML (one file per thread)
+
+In your code:
+
+ result = RubyProf.end
+ printer = RubyProf::GraphPrinter.new(result)
+ printer.print(STDOUT, 0)
+
+
+Setting CPU Frequency
+---------------------
+In your code:
+
+  RubyProf.cpu_frequency = &lt;value&gt;
+
+Or in your environment:
+
+  export RUBY_PROF_CPU_FREQUENCY=&lt;value&gt;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

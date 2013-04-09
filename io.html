@@ -1,0 +1,106 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Basic Math
+
+Io&gt; 1+1
+==&gt; 2
+
+Io&gt; 2 sin
+==&gt; 0.909297
+
+Io&gt; 2 sqrt
+==&gt; 1.414214
+Variables
+Io&gt; a := 1
+==&gt; 1
+
+Io&gt; a
+==&gt; 1
+
+Io&gt; b := 2 * 3
+==&gt; 6
+
+Io&gt; a + b
+==&gt; 7
+
+
+Conditions
+Io&gt; a := 2
+
+Io&gt; if(a == 1) then(writeln(&quot;a is one&quot;)) else(writeln(&quot;a is not one&quot;))
+a is not one
+
+Io&gt; if(a == 1, writeln(&quot;a is one&quot;), writeln(&quot;a is not one&quot;))
+a is not one
+Lists
+Io&gt; d := List clone append(30, 10, 5, 20)    
+==&gt; list(30, 10, 5, 20)   
+
+Io&gt; d size
+==&gt; 4
+
+Io&gt; d print
+==&gt; list(30, 10, 5, 20)
+
+Io&gt; d := d sort
+==&gt; list(5, 10, 20, 30)
+
+Io&gt; d first
+==&gt; 5
+
+Io&gt; d last
+==&gt; 30
+
+Io&gt; d at(2)
+==&gt; 20
+
+Io&gt; d remove(30)
+==&gt; list(5, 10, 20)
+
+Io&gt; d atPut(1, 123)
+==&gt; list(5, 123, 20)
+
+
+Loops
+Io&gt; for(i, 1, 10, write(i, &quot; &quot;))
+1 2 3 4 5 6 7 8 9 10 
+
+Io&gt; d foreach(i, v, writeln(i, &quot;: &quot;, v))
+0: 5
+1: 123
+3: 20
+
+
+Strings
+Io&gt; a := &quot;foo&quot;
+==&gt; &quot;foo&quot;
+
+Io&gt; b := &quot;bar&quot;
+==&gt; &quot;bar&quot;
+
+Io&gt; c := a .. b
+==&gt; &quot;foobar&quot;
+
+Io&gt; c at(0)
+==&gt; 102
+
+Io&gt; c at(0) asCharacter
+==&gt; &quot;f&quot;
+
+Io&gt; s := &quot;this is a test&quot;
+==&gt; &quot;this is a test&quot;
+
+Io&gt; words := s split(&quot; &quot;, &quot;\t&quot;) print
+&quot;this&quot;, &quot;is&quot;, &quot;a&quot;, &quot;test&quot;
+
+Io&gt; s findSeq(&quot;is&quot;)
+==&gt; 2
+
+Io&gt; s findSeq(&quot;test&quot;)
+==&gt; 10
+
+Io&gt; s slice(10)
+==&gt; &quot;test&quot;
+
+Io&gt; s slice(2, 10)
+==&gt; &quot;is is a &quot;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

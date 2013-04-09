@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Install a gem
+
+  gem install [gem name]
+
+Update to latest Rubygems (if any):
+
+  gem update --system
+
+Search for a gem:
+
+  gem query --remote --name [regular expession]
+
+Get list of outdated gems and update as necessary:
+
+  gem outdated
+
+Clean up outdated gems:
+
+  gem clean
+
+List installed gems by last access time:
+
+  gem stale
+
+Current Local Gem Repository:
+
+  gem environment
+
+  or
+
+  ruby -rrubygems -e&quot;puts Gem.path&quot;
+
+Discover Dependency for a Gem:
+
+  gem dependency [gem name]
+
+Don't generate Ri and RDoc when installing gems:
+
+  gem install [gem name] --no-ri --no-rdoc
+
+  to set this as default behavior:
+
+  echo &quot;gem: --no-ri --no-rdoc&quot; &gt;&gt; ~/.gemrc
+
+Uninstalling:
+
+  gem uninstall [gem name]
+
+  if that fails with something like:
+  ERROR:  While executing gem ... (Gem::InstallError)
+      Unknown gem [gem name]
+  then do this...
+
+  gem list -d [gem name]
+  gem list --local or -l
+  gem list --remote or -r
+  gem uninstall --install-dir [install directory] [gem name]
+
+Add a repository for remote gems:
+
+  gem sources -a [repository url]</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Special Variables:
+
+app
+helper
+
+Specifying console environment (defaults to development):
+
+$ script/console production
+$ script/console test
+$ script/console development
+
+Loading a session for debugging:
+
+&gt;&gt; session = Marshal.load(File.open(’tmp/sessions/ruby_sess.8eb9614a7e4e1e3b’))
+=&gt; {”hash”=&gt;{:cart=...}}
+&gt;&gt; cart = session[”hash”][:cart]
+
+Reloading the console:
+
+&gt;&gt; reload!
+
+
+Rollback all database changes on exit:
+
+$ script/console --sandbox 
+Loading development environment in sandbox.
+Any modifications you make will be rolled back on exit.
+&gt;&gt; _
+
+To maintain history across console sessions, add the following to ~/.irbrc:
+
+require 'irb/ext/save-history'
+IRB.conf[:SAVE_HISTORY] = 100
+IRB.conf[:HISTORY_FILE] = &quot;#{ENV['HOME']}/.irb-save-history&quot;
+
+See also:
+
+$ cheat rails_console</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

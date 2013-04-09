@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>*italic*   **bold**
+_italic_   __bold__
+
+Links and images include the text or alternate text in preceding brackets:
+An [Inline URL](http://url.com/ &quot;With a title&quot;)
+A [reference to example link][id]. This would be followed later by:
+[id]: http://example.com/  &quot;Title&quot;
+
+Inline (titles are optional):
+
+![an inline image](/path/img.jpg &quot;Title&quot;)
+![a referenced image][id] would be followed later by:
+[id]: /url/to/img.jpg &quot;Title&quot;
+
+Header 1
+========
+Header 2
+--------
+or
+# Header 1 #
+## Header 2 ##
+(closing #'s are optional)
+
+1.  First ordered list item
+2.  Second item
+
+*   An unordered list item.
+
+    With multiple paragraphs.
+
+*   Another unordered list item
+    1. With a nested item below it
+
+&gt; Email-style angle brackets
+&gt; are used for blockquotes.
+
+&gt; &gt; And, they can be nested.
+
+&gt; #### Headers in blockquotes
+&gt; 
+&gt; * You can quote a list.
+&gt; * Etc.
+
+`&lt;code&gt;` spans are delimited by backticks.  You can include literal
+backticks like `` `this` ``.
+
+    This is a preformatted code block. It must be indented
+    either by at least four spaces or a tab
+
+
+This is a normal &lt;p&gt;paragraph&lt;/p&gt;.
+
+
+Three or more dashes or asterisks make a horizontal rule:
+---
+* * *
+- - - -
+
+Footnote Links
+
+To create footnote links reference it like so ` [word][1] ` and then
+create a link to it somewhere in the document.
+
+    ` [1]: &lt;url&gt; &quot;Optional Title&quot;
+
+
+table
+
+Name    |   Age
+--------|------
+Fred    |   29
+Jim     |   47
+Harry   |   32
+
+You can also add an anchor for an element such as Headers, then you can
+link to this anchor anywhere. For example:
+
+## [This header is anchored](id:anchor1)
+
+To jump to the above header just clikc this [link](#anchor1) and a web
+browser will autoscroll to it.
+
+Finally, end a line with two or more spaces to do a manual line break</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Capistrano tasks to manage Amazon EC2 Images. Requires Capistrano 2.x
+http://capazon.rubyforge.org/, http://www.capify.org/
+
+gem install capazon
+
+Edit your your config/deploy.rb:
+
+        require 'capazon'
+
+        #AWS login info
+        set :aws_access_key_id, 'XXX'
+        set :aws_secret_access_key, 'X'
+
+        # Name of the keypair used to spawn and connect to the Amazon EC2 Instance
+        # Defaults to one created by the setup_keypair task
+        set :aws_keypair_name, &quot;#{application}-capazon&quot;
+
+        # Path to the private key for the Amazon EC2 Instance mentioned above
+        # Detaults to one created by setup_keypair task
+        set :aws_private_key_path, &quot;#{Dir.pwd}/#{aws_keypair_name}-key&quot;
+
+        #defaults to an ubuntu image
+        #set :aws_ami_id, &quot;ami-e4b6538d&quot;
+
+        #defaults to, um, default
+        #set :aws_security_group, &quot;default&quot;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

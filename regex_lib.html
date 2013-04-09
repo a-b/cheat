@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Leerzeichen zwischen String und Zuweisung entfernen
+---------------------------------------------------
+  Pattern: /&quot;(\s*)=/
+  Replacement: &quot; =
+
+
+YAML to Ruby-Hash
+-----------------
+  Pattern: /^(\s+)(\w+):\s+(.*)\s*$/
+  Replacement: $1:$2 =&gt; $3,
+
+
+MySQL SELECT * Ergebnis in INSERTS
+----------------------------------
+  Pattern: /^\s*\|\s+\d+\s+\|\s+([\d\w\s\/\,\(\)\-\.\*]+\w)\s+\|\s+(\d+).*$/
+  Replacement: INSERT INTO lookups (original_type, text, original_id) VALUES('Bodytype', '$1', $2);
+
+
+MySQL SHOW TABLES Ergebnis in DROP TABLES umwandeln
+---------------------------------------------------
+  Pattern: ^\s*\|\s+(\w+).*$
+  Replacement: DROP TABLE $1;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

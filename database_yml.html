@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>DRY out your database.yml
+From: http://blog.bleything.net/articles/2006/06/27/dry-out-your-database-yml
+Updated with a more universal database naming scheme, which better accomodates multiple instances of the same application.
+
+-----
+
+login: &amp;login
+  adapter: mysql
+  username: username
+  password: password
+  # host: mysql.example.com
+  encoding: utf8
+  port: 3306
+
+development:
+  &lt;&lt;: *login
+  database: app_domain_com_d
+
+test:
+  &lt;&lt;: *login
+  database: app_domain_com_t
+
+production:
+  &lt;&lt;: *login
+  database: app_domain_com_p</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

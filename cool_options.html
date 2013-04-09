@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>From http://cooloptions.rubyforge.org/:
+Declaration:
+
+  options = CoolOptions.parse!(&quot;[options] PROJECTNAME&quot;) do |o|
+    o.desc 'Sets up a new Rails project.'
+    o.on &quot;repository URL&quot;,         &quot;Remote subversion repository.&quot;
+    o.on &quot;svk&quot;,                    &quot;Use svk.&quot;,                              true
+    o.on &quot;project-path PATH&quot;,      &quot;Root of project workspaces.&quot;,           File.expand_path(&quot;~/svk&quot;)
+    o.on &quot;l)repository-path PATH&quot;, &quot;Remote repository path.&quot;,               &quot;/&quot;
+    o.on &quot;mirror-path SVKPATH&quot;,    &quot;SVK mirror path.&quot;,                      &quot;//&quot;
+    o.on &quot;local-pa(t)h SVKPATH&quot;,   &quot;SVK local path.&quot;,                       &quot;//local&quot;
+    o.on &quot;create-structure&quot;,       &quot;Create trunk/tags/branches structure.&quot;, true
+    o.on &quot;finish&quot;,                 &quot;Prep and commit the new project.&quot;,      true
+
+    o.after do |r|
+      r.project_path = File.expand_path(r.project_path)
+      o.error(&quot;Invalid path.&quot;) unless File.exist?(r.project_path)
+      r.project_name = ARGV.shift
+      o.error(&quot;Project name is required.&quot;) unless r.project_name
+      o.error(&quot;Project name is too funky.&quot;) unless /^\w+$/ =~ r.project_name
+    end
+  end
+
+Usage:
+
+  $ ./new_rails_project --no-svk -r http://terralien.com/svn/terralien/ myproject
+
+Result:
+
+  p options.svk                 # =&gt; false
+  p options.project_path        # =&gt; '/Users/ntalbott/svk'
+  p options.repository          # =&gt; 'http://terralien.com/svn/terralien/'
+  p options.create_structure    # =&gt; true
+  p options.project_name        # =&gt; 'myproject'
+
+Also:
+
+  $ ./new_rails_project --help
+  Usage: t.rb [options] PROJECTNAME
+      -s, --[no-]svk                   Use svk.
+                                       Default is: true
+      -p, --project-path PATH          Root of project workspaces.
+                                       Default is: /Users/ntalbott/svk
+      -r, --repository URL             Remote subversion repository.
+      -l, --repository-path PATH       Remote repository path.
+                                       Default is: /
+      -m, --mirror-path SVKPATH        SVK mirror path.
+                                       Default is: //
+      -t, --local-path SVKPATH         SVK local path.
+                                       Default is: //local
+      -c, --[no-]create-structure      Create trunk/tags/branches structure.
+                                       Default is: true
+      -f, --[no-]finish                Prep and commit the new project.
+                                       Default is: true
+      -h, --help                       This help info.</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

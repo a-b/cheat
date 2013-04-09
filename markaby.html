@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre># gem install markaby
+
+require 'rubygems'
+require 'markaby'
+
+# Indent with two spaces, this is optional
+Markaby::Builder.set(:indent, 2)
+
+markaby = Markaby::Builder.new
+
+markaby.html do
+  head do
+    title &quot;Markaby Cheat Sheet&quot;
+    meta :name =&gt; &quot;keywords&quot;, :content =&gt; &quot;markaby, cheat, sheet, ruby&quot;
+    style :type =&gt; &quot;text/css&quot; do
+      %[
+        body { font: 11px/120% Verdana, sans-serif }
+      ]
+    end
+  end
+
+  body do
+    div.content do 
+      p &quot;Paragraph in a div with a class of content&quot;
+      p.hasclass &quot;Paragraph with a class of hasclass in a div with a class of content&quot;
+      p.third! &quot;Paragraph with an ID of third in a div with a class of content&quot;
+    end
+    ul {
+      li &quot;Markaby is just Ruby&quot;
+      li &quot;So Curly Brace code blocks work too&quot;
+    }
+    div :style =&gt; &quot;font-size:32px&quot;, &quot;This is huge due to the style parameter!&quot;
+    img :src=&gt; '/static/img/image.png'
+
+    iframe :src=&gt;'http://mislav.uniqpath.com/poignant-guide/images/the.foxes-4b.png',
+           :scrolling=&gt;'no',:frameborder=&gt;'no',
+           :style=&gt;'width:400px;height:240px;'
+
+    select.status! do
+      option 'Unavailable', :value=&gt; 0
+      option 'Busy', :value=&gt; 1, :selected=&gt; true
+      option 'Available', :value=&gt; 2
+    end
+  end
+end
+
+markaby.to_s</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

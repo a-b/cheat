@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>ruby: send('method', arg)
+  io: perform(&quot;slot&quot;, arg)
+
+ruby: respond_to? 'method'
+  io: hasSlot(&quot;slot&quot;)
+
+ruby: object.something if object.respond_to? :something
+  io: object ?something
+
+ruby: methods
+  io: slotNames
+
+ruby: method_missing
+  io: forward
+
+ruby: inspect
+  io: slotSummary
+
+ruby: puts method(:blah).to_ruby
+  io: getSlot(&quot;blah&quot;) code print
+
+ruby: extend Module
+  io: appendProto(Module clone)
+
+ruby: require 'file'
+  io: doFile('file.io')
+
+ruby: dudes.map { |dude| dude.name }
+  io: dudes map(dude, dude name)
+
+ruby: dudes.map(&amp;:name)
+  io: dudes map(name)
+
+ruby: longest = tasks.map { |task| task.name.size }.max 
+  io: longest := tasks map(name size) max
+
+ruby: dudes.each { |dude| puts &quot; #{dude.name}&quot; }
+  io: dudes foreach(dude, writeln(&quot; &quot;, dude name))
+
+ruby: dudes.each_with_index { |dude,i| puts &quot; #{dude.name}&quot; }
+  io: dudes foreach(i, dude, writeln(&quot; &quot;, dude name))
+
+ruby: dudes.select { |dude| dude.age &lt; 32 }
+  io: dudes select(dude, dude age &lt; 32)        
+
+ruby: dudes.select { |dude| dude.age &lt; 32 }
+  io: dudes select(age &lt; 32)</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

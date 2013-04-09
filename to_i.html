@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>&quot;1&quot;.to_i         # =&gt; 1
+Integer(&quot;1&quot;)     # =&gt; 1
+
+&quot;2two&quot;.to_i      # =&gt; 2
+Integer(&quot;2two&quot;)  # =&gt; ArgumentError: invalid value for Integer: &quot;2two&quot;
+
+&quot;three&quot;.to_i     # =&gt; 0
+Integer(&quot;three&quot;) # =&gt; ArgumentError: invalid value for Integer: &quot;three&quot;
+
+&quot;100&quot;.to_i(16) # =&gt; 256
+&quot;foo&quot;.to_i(36) # =&gt; 20328
+
+Time.now.to_i # =&gt; 1227934942
+open('foo.txt').to_i # =&gt; 3
+
+nil.to_i # =&gt; 0</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

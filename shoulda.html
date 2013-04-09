@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Installing
+----------
+
+  As a Rails plugin
+  -----------------
+
+    script/plugin install git://github.com/thoughtbot/shoulda.git
+
+  As a Rails gem
+  --------------
+
+    In config/environment.rb:
+      config.gem 'thoughtbot-shoulda', :lib =&gt; 'shoulda/rails', :source =&gt; 'http://gems.github.com'
+
+    Then run:
+      rake gems:install gems:unpack
+
+  As a standalone gem
+  -------------------
+
+    Run:
+      sudo gem install thoughtbot-shoulda -s http://gems.github.com
+
+    In your test, or test_helper.rb:
+      require 'shoulda'
+
+  Using Shoulda with RSpec
+  ------------------------
+
+    $ cheat rspec_shoulda
+
+Assertions
+----------
+
+  assert_contains &lt;array&gt;, &lt;object in array, or regular expression to match&gt;
+  assert_does_not_contain &lt;array&gt;, &lt;object not in array, or regular expression to not match&gt;
+
+  assert_same_elements &lt;array&gt;, &lt;array with same elements, but different order&gt;
+
+  assert_bad_value &lt;class&gt;, &lt;attribute&gt;, &lt;value that should cause an validation error on attribute&gt;
+  assert_good_value &lt;class&gt;, &lt;attribute&gt;, &lt;value that should not cause a validation error on attribute&gt;
+
+  assert_save &lt;object which .save returns true&gt;
+  assert_valid &lt;object which .valid? returns true&gt; 
+
+  assert_sent_email do |email| 
+   email.subject =~ /activated/ &amp;&amp; email.to.include?('bob@email.com') 
+  end
+  assert_did_not_send_email do |email| 
+   email.subject =~ /activated/ &amp;&amp; email.to.include?('bob@email.com') 
+  end
+
+Basics
+------
+
+  class FooTest &lt; Test::Unit::TestCase
+    context &lt;context description string&gt; do
+      setup do
+        # ...
+      end
+
+      teardown do
+      end
+
+      should &lt;description string&gt; do
+      end
+
+      should_eventually &lt;description string&gt;
+      should_eventually &lt;description string&gt; do
+        # this code can be broken, but won't break the build
+      end
+    end
+
+    should &lt;string description&gt; do
+      # ...
+    end
+  end
+
+
+
+General Macros
+--------------
+
+  should_change &quot;Post.count&quot;, :from =&gt; 0, :to =&gt; 1
+  should_change &quot;@post.title&quot;, :from =&gt; &quot;old&quot;, :to =&gt; &quot;new&quot;
+  should_change &quot;@post.title&quot;
+  should_change &quot;@post.title&quot; :from =&gt; &quot;old&quot;
+  should_change &quot;@post.title&quot; :to   =&gt; &quot;new&quot;
+  should_not_change &quot;Post.count&quot;
+
+Macros for class under test
+---------------------------
+
+  should_have_class_methods :find, :destroy
+  should_have_instance_methods :email, :name, :name=
+
+ActiveRecord Macros
+-------------------
+
+  should_have_db_columns :id, :email, :name, :created_at
+  should_have_db_column :email, :type =&gt; &quot;string&quot;, :default =&gt; nil,   :precision
+  =&gt; nil, :limit    =&gt; 255,
+                                :null =&gt; true,     :primary =&gt; false, :scale    
+                                =&gt; nil, :sql_type =&gt; 'varchar(255)'
+
+  should_have_indices :email, :name, [:commentable_type, :commentable_id]
+  should_have_index :age
+
+  should_have_named_scope 'recent(5)', :limit =&gt; 5
+  should_have_named_scope 'recent(1)', :limit =&gt; 1
+
+  should_require_acceptance_of :eula
+
+  should_ensure_length_is :ssn, 9
+  should_ensure_length_at_least :name, 3
+  should_ensure_length_in_range :password, (8..40)
+  should_ensure_value_in_range :age, (0..100)
+
+  should_only_allow_numeric_values_for :age
+
+  should_have_readonly_attributes :password, :admin_flag
+
+  should_require_attributes :name, :phone_number
+
+  should_require_unique_attributes :keyword, :username
+  should_require_unique_attributes :name, :message =&gt; &quot;O NOES! SOMEONE STOELED
+  YER NAME!&quot;
+  should_require_unique_attributes :email, :scoped_to =&gt; :name
+  should_require_unique_attributes :address, :scoped_to =&gt; [:first_name,
+  :last_name]
+
+  should_protect_attributes :password, :admin_flag
+
+  should_allow_values_for :phone, &quot;(123) 999-3049&quot;, &quot;201-0023&quot;
+  should_not_allow_values_for :phone, &quot;I am totally not a phone number&quot;,
+  &quot;201-0023&quot;
+
+  should_belong_to :parent
+
+  should_have_one :god
+
+  should_have_many :friends
+  should_have_many :enemies, :through =&gt; :friends
+  should_have_many :enemies, :dependent =&gt; :destroy
+
+  should_have_and_belong_to_many :posts, :cars
+
+ActionController Macros
+-----------------------
+
+  should_assign_to
+  should_be_restful
+  should_belong_to
+  should_filter_params
+  should_not_assign_to
+  should_not_set_the_flash
+  should_redirect_to
+  should_render_a_form
+  should_render_template
+  should_respond_with
+  should_respond_with_xml_for
+  should_route
+  should_set_the_flash_to</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

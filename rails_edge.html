@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Riding the Edge with EdgeRails
+
+EdgeRails is a term which means you are running a local copy of a developmental version of Rails (i.e., you’re on the bleeding edge).
+
+source:  http://wiki.rubyonrails.org/rails/pages/EdgeRails/
+
+The easy way:
+ $ rake rails:freeze:edge
+ $ rake rails:unfreeze
+
+As svn:externals (better?):
+ $ svn propedit svn:externals vendor
+   rails http://svn.rubyonrails.org/rails/trunk
+
+As svn:externals, using a specific revision, which gives you more control - you should figure out what revision is best for your app, of course.
+ $ svn propset svn:externals vendor
+   rails -r6881 http://svn.rubyonrails.org/rails/trunk
+
+Using Piston (better, still):
+ $ piston import http://svn.rubyonrails.org/rails/trunk vendor/rails
+or
+ $ piston import --revision=# http://svn.rubyonrails.org/rails/trunk vendor/rails
+
+By GEM:
+ $ gem install -s http://gems.rubyonrails.com rails -y</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Help - use these commands to get more information about the commands below
+  man &lt;cmd&gt; - get usage information about command &lt;cmd&gt;
+  info &lt;cmd&gt; - get usage information about command &lt;cmd&gt;
+
+Directories
+  ls - list directory contents
+  pwd - report current directory
+  cd &lt;dir&gt; - change current directory to &lt;dir&gt;
+  pushd &lt;dir&gt; - change directory and store previous directory on stack
+  popd - return to directory on top of stack
+  find - list directory contents recursively
+  mkdir &lt;dir&gt; - make new directory
+  rmdir &lt;dir&gt; - remove empty directory
+
+Text files
+  cat &lt;files&gt; - show file contents
+  grep &lt;pattern&gt; &lt;files&gt; - find pattern in files
+  vi (or vim) &lt;file&gt; - edit file
+  diff &lt;old&gt; &lt;new&gt; - report changes between files
+  patch - apply changes to a file
+  less or more - page through a text file
+
+Files
+  cp &lt;src&gt; &lt;dest&gt; - copy file
+  mv &lt;src&gt; &lt;dest&gt; - move file
+  rm &lt;files&gt; - delete file
+  chmod &lt;permissions&gt; &lt;files&gt; - change file permissions
+  ln - create link between files (give a file multiple names)
+  gzip/gunzip - compress/decompress files
+  bzip/bunzip - compress/decompress files
+  tar - package/unpackage multiple files into archive file (usually used in conjunction with gzip or bzip compression). See man pages
+  zip/unzip - compress/decompress windows zip archives
+
+Processes
+  ps - list running processes
+  pstree - list running processes as tree
+  kill - kill running process
+  uptime - get information about running kernel, machine load
+  top - keep track of processes using the most resources
+
+Other
+  date - show current date
+  uname - show info about OS
+  which &lt;executable&gt; - find out where in path &lt;executable&gt; lives
+  hostname - get host name of current machine
+  ifconfig - get information about network interfaces (including IP addresses)
+  ssh - secure shell. Used to login to remote machines
+  links or lynx - text-only browser
+  wget or curl - download remote file (http, ftp, etc)
+
+Users
+  useradd - create user
+  whoami - report your username
+  last - list recent logins
+  su - login as another user
+  sudo - run a command as another user
+  who - report who is currently logged in
+  passwd - change password</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

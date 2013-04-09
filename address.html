@@ -1,0 +1,9 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Here's a simple ERB snippet to output an address if you don't know which components of the address will be provided.
+
+&lt;%= record.address + content_tag(:br) if record.address %&gt;
+&lt;%= record.address2 + content_tag(:br) if record.address2 %&gt;
+&lt;%= record.city.to_s + (record.state || record.zip ? ',' : '') %&gt;
+&lt;%= &quot;#{record.state} #{record.zip}&quot; %&gt;
+&lt;%= content_tag(:br) + record.country if record.country %&gt;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

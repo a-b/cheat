@@ -1,0 +1,315 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Open a database
+
+  require 'rubygems'
+  require 'sequel'
+
+  DB = Sequel.sqlite 'my_blog.db'
+  DB = Sequel.connect('postgres://user:password@localhost/my_db')
+  DB = Sequel.mysql 'my_db', :user =&gt; 'user', :password =&gt; 'password', :host =&gt; 'localhost'
+  DB = Sequel.ado 'mydb'
+
+Open an SQLite memory database
+
+Without a filename argument, the sqlite adapter will setup a new sqlite database in RAM.
+
+  DB = Sequel.sqlite
+
+Logging SQL statements
+
+  require 'logger'
+  DB = Sequel.sqlite '', :loggers =&gt; [Logger.new($stdout)]
+  # or
+  DB.loggers &lt;&lt; Logger.new(...)
+
+Using raw SQL
+
+  DB &lt;&lt; &quot;CREATE TABLE users (name VARCHAR(255) NOT NULL, age INT(3) NOT NULL)&quot;
+  DB.fetch(&quot;SELECT name FROM users&quot;) do |row|
+    p r[:name]
+  end
+  dataset = DB[&quot;SELECT age FROM users&quot;]
+  dataset.print
+  dataset.map(:age)
+
+Create a dataset
+
+  dataset = DB[:items]
+  dataset = DB.dataset.from(:items)
+
+Most dataset methods are chainable
+
+  dataset = DB[:managers].where(:salary =&gt; 5000..10000).order(:name, :department)
+  # or
+  dataset = DB.query do
+    from :managers
+    where :salary =&gt; 5000..10000
+    order :name, :department
+  end
+
+Insert rows
+
+  dataset.insert(:name =&gt; 'Sharon', :grade =&gt; 50)
+  dataset &lt;&lt; {:name =&gt; 'Sharon', :grade =&gt; 50} # same effect as above
+
+Retrieve rows
+
+  dataset.each {|r| p r}
+  dataset.all #=&gt; [{...}, {...}, ...]
+  dataset.first
+  dataset.order(:name).last # works only for ordered datasets
+
+Retrieve single value
+  id= DB[:item].filter(:name =&gt; 'item1').select(:id).single_value
+
+Update/Delete rows
+
+  dataset.filter(:active =&gt; false).delete
+  dataset.filter('price &lt; ?', 100).update(:active =&gt; true)
+  DB[:user].filter(:id =&gt; 1).update(:count =&gt; :count + 1) #=&gt; 
+    &quot;UPDATE user SET count = (count + 1) WHERE (id = 1)&quot;
+
+Datasets are Enumerable
+
+  dataset.map {|r| r[:name]}
+  dataset.map(:name) # same effect as above
+
+  dataset.inject {|sum, r| sum + r[:value]}
+
+Filtering (see also doc/dataset_filtering.rdoc)
+
+  dataset.filter(:name =&gt; 'abc')
+  dataset.filter('name = ?', 'abc')
+  dataset.filter(:value &gt; 100)
+  dataset.exclude(:value &lt;= 100)
+
+  dataset.filter(:value =&gt; 50..100)
+  dataset.where((:value &gt;= 50) &amp; (:value &lt;= 100))
+
+  dataset.where('value IN ?', [50,75,100])
+
+  # Get the first record that matches a condition
+  dataset[:name =&gt; 'abc'] # Same as:
+  dataset.filter(:name =&gt; 'abc').first
+
+  # Filter using a subquery
+  dataset.filter('price &gt; ?', dataset.select('AVG(price) + 100'))
+
+Advanced filtering using ruby expressions without blocks
+
+Available as of Sequel 2.0:
+
+  DB[:items].filter(:price &lt; 100).sql
+  #=&gt; &quot;SELECT * FROM items WHERE (price &lt; 100)&quot;
+
+  DB[:items].filter(:name.like('AL%')).sql
+  #=&gt; &quot;SELECT * FROM items WHERE (name LIKE 'AL%')&quot;
+
+There's support for nested expressions with AND, OR and NOT:
+
+  DB[:items].filter((:x &gt; 5) &amp; (:y &gt; 10)).sql
+  #=&gt; &quot;SELECT * FROM items WHERE ((x &gt; 5) AND (y &gt; 10))&quot;
+
+  DB[:items].filter({:x =&gt; 1, :y =&gt; 2}.sql_or &amp; ~{:z =&gt; 3}).sql
+  #=&gt; &quot;SELECT * FROM items WHERE (((x = 1) OR (y = 2)) AND (z != 3))&quot;
+
+You can use arithmetic operators and specify SQL functions:
+
+  DB[:items].filter((:x + :y) &gt; :z).sql
+  #=&gt; &quot;SELECT * FROM items WHERE ((x + y) &gt; z)&quot;
+
+  DB[:items].filter(:price &lt; :AVG[:price] + 100).sql
+  #=&gt; &quot;SELECT * FROM items WHERE (price &lt; (AVG(price) + 100))&quot;
+
+Ordering
+
+  dataset.order(:kind)
+  dataset.reverse_order(:kind)
+  dataset.order(:kind.desc, :name)
+
+Row ranges
+
+  dataset.limit(30) # LIMIT 30
+  dataset.limit(30, 10) # LIMIT 30 OFFSET 10
+
+Pagination
+
+  paginated = dataset.paginate(1, 10) # first page, 10 rows per page
+  paginated.page_count #=&gt; number of pages in dataset
+  paginated.current_page #=&gt; 1
+  paginated.next_page #=&gt; next page number or nil
+  paginated.prev_page #=&gt; previous page number or nil
+  paginated.first_page? #=&gt; true if page number = 1
+  paginated.last_page? #=&gt; true if page number = page_count
+
+Joins
+
+  DB[:items].left_outer_join(:categories, :id =&gt; :category_id).sql #=&gt;
+    &quot;SELECT * FROM items LEFT OUTER JOIN categories ON categories.id = items.category_id&quot;
+
+  DB[:items].join(:users, :id =&gt; :user_id).join(:resources, :id =&gt; :items__resource_id).sql #=&gt;
+    &quot;SELECT * FROM items INNER JOIN users ON (users.id = items.user_id) INNER JOIN resources ON (resources.id = items.resource_id)&quot;
+
+  DB.from(:items___t, :users___u, :resources___r).filter(:u__id=&gt;:t__user_id, :r__id=&gt;:t__resource_id).sql #=&gt;
+    &quot;SELECT * FROM items AS t, users AS u, resources AS r WHERE ((u.id = t.user_id) AND (r.id = t.resource_id))&quot;
+
+Summarizing
+
+  dataset.count #=&gt; record count
+  dataset.max(:price)
+  dataset.min(:price)
+  dataset.avg(:price)
+  dataset.sum(:stock)
+
+  dataset.group(:category).select(:category, :AVG[:price])
+
+SQL Functions / Literals
+
+  dataset.update(:updated_at =&gt; :NOW[])
+  dataset.update(:updated_at =&gt; 'NOW()'.lit)
+
+  dataset.update(:updated_at =&gt; &quot;DateValue('1/1/2001')&quot;.lit)
+  dataset.update(:updated_at =&gt; :DateValue['1/1/2001'])
+
+  dataset.filter({:updated_at.extract(:year) =&gt; 3} &amp; {:updated_at.extract(:month) =&gt; 1}) 
+
+Schema Manipulation
+
+  DB.create_table :items do
+    primary_key :id
+    text :name, :unique =&gt; true, :null =&gt; false
+    boolean :active, :default =&gt; true
+    foreign_key :category_id, :categories
+    index :grade
+    constraint(:check_grade) { {:grade =&gt; 0} | {:active =&gt; false} }
+  end
+
+  DB.drop_table :items
+
+  DB.create_table :test do
+    varchar :zipcode, :size =&gt; 10
+    enum :system, :elements =&gt; ['mac', 'linux', 'windows']
+  end
+
+Migrations
+  class AddUser &lt; Sequel::Migration
+    def up
+      create_table :users do
+        primary_key :id
+        text :username, :unique =&gt; true, :null =&gt; false
+        text :email, :unique =&gt; true, :null =&gt; false
+        varchar :password, :size =&gt; 40, :null =&gt; false
+        date :dob, :null =&gt; false
+        boolean :disabled, :default =&gt; false
+        timestamp :created_at
+        timestamp :updated_at
+      end
+    end
+
+    def down
+      drop_table :users
+    end
+  end
+
+  class ModifyProfiles &lt; Sequel::Migration
+    def up
+      alter_table :profiles do
+        add_column :firstname, :text
+        add_column :lastname, :text
+	add_index :zip
+        add_constraint(:check_count) { :count &gt; 0 }
+        rename_column :col1, :col2
+        set_column_default :age, 21
+      end
+    end
+
+    def down
+      alter_table :profiles do
+        drop_column :firstname
+        drop_column :lastname
+        drop_index :zip
+        rename_column :col2, :col1
+      end
+    end
+  end
+
+
+
+Aliasing
+
+  DB[:items].select(:name.as(:item_name))
+  DB[:items].select(:name =&gt; :item_name)
+  DB[:items].select(:name___item_name)
+  DB[:items___items_table].select(:items_table__name___item_name)
+  # =&gt; &quot;SELECT items_table.name AS item_name FROM items AS items_table&quot;
+
+Transactions
+
+  DB.transaction do
+    dataset &lt;&lt; {:first_name =&gt; 'Inigo', :last_name =&gt; 'Montoya'}
+    dataset &lt;&lt; {:first_name =&gt; 'Farm', :last_name =&gt; 'Boy'}
+  end # Either both are inserted or neither are inserted
+
+Database#transaction is re-entrant:
+
+  DB.transaction do # BEGIN issued only here
+    DB.transaction
+      dataset &lt;&lt; {:first_name =&gt; 'Inigo', :last_name =&gt; 'Montoya'}
+    end
+  end # COMMIT issued only here
+
+Transactions are aborted if an error is raised:
+
+  DB.transaction do
+    raise &quot;some error occurred&quot;
+  end # ROLLBACK issued and the error is re-raised
+
+Transactions can also be aborted by raising Sequel::Error::Rollback:
+
+  DB.transaction do
+    raise(Sequel::Error::Rollback) if something_bad_happened
+  end # ROLLBACK issued and no error raised
+
+Supported Types:
+
+ DB.create_table(:cats) do
+      primary_key :id, :type=&gt;Integer             # integer
+      String :a                                   # varchar(255)
+      String :a2, :size=&gt;50                       # varchar(50)
+      String :a3, :fixed=&gt;true                    # char(255)
+      String :a4, :fixed=&gt;true, :size=&gt;50         # char(50)
+      String :a5, :text=&gt;true                     # text
+      column :b, File                             # blob
+      Fixnum :c                                   # integer
+      foreign_key :d, :other_table, :type=&gt;Bignum # bigint
+      Float :e                                    # double precision
+      BigDecimal :f                               # numeric
+      BigDecimal :f2, :size=&gt;10                   # numeric(10)
+      BigDecimal :f3, :size=&gt;[10, 2]              # numeric(10, 2)
+      Date :g                                     # date
+      DateTime :h                                 # timestamp
+      Time :i                                     # timestamp
+      Time :i2, :only_time=&gt;true                  # time
+      Numeric :j                                  # numeric
+      TrueClass :k                                # boolean
+      FalseClass :l                               # boolean
+    end
+
+Miscellaneous:
+
+  dataset.sql #=&gt; &quot;SELECT * FROM items&quot;
+  dataset.delete_sql #=&gt; &quot;DELETE FROM items&quot;
+  dataset.where(:name =&gt; 'sequel').exists #=&gt; &quot;EXISTS ( SELECT 1 FROM items WHERE name = 'sequel' )&quot;
+  b= DB.fetch(&quot;SELECT #{DB[:item].filter(:name =&gt; 'sequel').exists}&quot;).single_value #there maybe a better way
+  dataset.print #=&gt; pretty table print to $stdout
+  dataset.columns #=&gt; array of columns in the result set, does a SELECT
+  DB.schema_for_table(:items) =&gt; [[:id, {:type=&gt;:integer, ...}], [:name, {:type=&gt;:string, ...}], ...]
+                                 # Works on PostgreSQL, MySQL, SQLite, and possibly elsewhere
+
+  # indexing, and programatically creating updates
+  v= 123
+  periods= [:year, :month, :day]
+  idx= 10
+  DB[:items].update_sql(periods.inject({}){|h, p| h[p|idx] = (p|idx) + v; h}) #=&gt; 
+    &quot;UPDATE items SET month[10] = (month[10] + 123), year[10] = (year[10] + 123), week[10] = (week[10] + 123)&quot;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

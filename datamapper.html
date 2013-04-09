@@ -1,0 +1,134 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>DataMapper, the ruby object relational mapper
+  website:  http://www.datamapper.org
+  git:      git://github.com/datamapper/dm-core.git
+  mail:     http://groups.google.com/group/datamapper
+  now:      http://www.twitter.com/datamapper
+            irc://irc.freenode.net/datamapper
+            irc://irc.freenode.net/dm-hacking
+  before:   http://irclogger.com/.datamapper/
+            http://irclogger.com/.dm-hacking/
+  bugs:     https://github.com/datamapper/dm-core/issues
+
+Setting up a Connection
+  DataMapper.setup(:default, &quot;adapter://user:password@hostname/dbname&quot;)
+  supported adapters: mysql, sqlite, postgres, sqlite::memory:
+  additional adapters are in dm-more, (couchdb, rest, imap, file, saleforce...)
+  in-memory adapter: DataMapper.setup(:default, :adapter =&gt; 'in_memory')
+
+Creating a Model (with properties)
+  class Zoo
+    include DataMapper::Resource
+    property :id, Serial
+  end
+
+
+Properties
+  property :id,   Serial               # auto-incrementing PK
+  property :name, String, :key =&gt; true # natural key
+    # you must specify &gt;= 1 key, CPK support 100%
+
+  # available data-types
+  property :description, Text # (lazy by default)
+  property :created_at,  DateTime
+  property :open,        Boolean
+  property :admission,   BigDecimal
+
+  # require dm-types for Csv, Enum, EpochTime, FilePath, Flag,
+  #  IPAddress, URI, Yaml and more
+
+Property Options (pass as hash)
+  :default, :required, :field (column name), :size, :length, :format,
+  :index, :unique_index, :ordinal, :auto_validation, :precision,
+  :scale, :accessor, :reader, :writer, :lazy
+
+
+Finders
+  Zoo.get(PK_HERE)
+  Zoo.first({see_below})
+  Zoo.all({see_below})
+
+Finder Options (pass as hash)
+  :conditions =&gt; [&quot;property = ? and property = ?&quot;, 'value', 'value']
+  :conditions =&gt; {:property =&gt; 'value', ...}
+  :property =&gt; 'ZooNameHere' 
+     # any non-standard key =&gt; value pair is assumed a condition if not 
+     # otherwise recognized
+  :property.lte =&gt; 12.00  # &lt;=
+           .gte           # &gt;=
+           .gt            # &gt;
+           .lt            # &lt;
+           .not           # NOT =
+           .like          # LIKE
+           .in            # IN ()
+  'class.property' =&gt; 'value'
+  Class.relationship.property =&gt; 'value' # will automatically issue JOINS
+
+Finder Gotcha
+  :order =&gt; [:created_at.desc, ...] # descending sort
+                        .asc        # ascending
+
+
+Associations
+  has 1                    # has_one
+  has n                    # has_many
+  belongs_to :thing
+  has n, :more_things, :through =&gt; :things
+  has n, :things, :through =&gt; Resource # has_and_belongs_to_many
+
+Association Options
+  (any Finder Options)
+  :model =&gt; 'ClassNameHere'
+  :order =&gt; [:property.desc]
+  :child_key =&gt; [:property, ...]
+  :through =&gt; :other_association
+
+
+Validations (require 'dm-validations')
+  validates_presence_of     :title
+  validates_numericality_of :rating
+  validates_format_of       :email, :as =&gt; :email_address
+  validates_length_of       :summary, :in =&gt; (1..100)
+  validates_uniqueness_of   :slug
+  validates_with_method (do...end, :method_name)
+
+
+Callbacks AKA &quot;Hooks&quot;
+  Object-level
+    before :method_name, (do...end, :another_method_name)
+    after  :method_name, (do...end, :another_method_name)
+  Class-level
+    before_class_method :method_name, (do...end, :another_method_name)
+    after_class_method  :method_name, (do...end, :another_method_name)
+
+Callbacks Gotcha
+  Hooks act on 'self' and aren't passed an arguement
+  'self' for object-level hooks are the instance
+  'self' for class-level hooks are the class itself
+
+Misc. Stuff &amp; Gotchas
+  Single Table Inheritance
+    property :type, Discriminator # then inherit from this model
+
+  Paranoia
+    property :deleted_at, ParanoidDateTime
+    property :deleted,    ParanoidBoolean
+
+  Multiple DB Connections
+    DataMapper.setup(:external, &quot;adapter://username:password@hostname/dbname&quot;)
+    DataMapper.repository(:external) do...end
+    Association: has n, :things, :repository =&gt; repository(:external)
+    Finder: Thing.all(:repository =&gt; repository(:external))
+
+    DataMapper.setup(:colors_db,  &quot;sqlite3:path/to/colors.db&quot;)
+    class Color
+       include DataMapper::Resource
+
+
+       def self.default_repository_name
+         :colors_db
+       end
+
+       property :name, String
+    end</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

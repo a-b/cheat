@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Watir
+*Load the Watir library
+  require 'watir'
+
+*Open Internet Explorer at the specified URL
+  $browser = Watir::IE.start(&quot;http://google.com&quot;)
+  $browser = Watir::IE.start &quot;http://google.com&quot;
+
+*Attach to an existing browser, raising an exception if it isn't found
+  $browser = Watir::IE.attach(:url, &quot;http://www.google.com&quot;)
+  $browser = Watir::IE.attach(:title, &quot;Google&quot;)
+
+*Attach to an existing browser, returning nil if it isn't found
+  $browser = Watir::IE.find(:title, &quot;Google&quot;) 
+  $browser = Watir::IE.find(:url, &quot;http://www.google.com&quot;)
+
+*Speed up execution (or use the &quot;-b&quot; command line switch)
+  $browser.speed = :fast
+
+*Close the browser
+  $browser.close
+
+*Access an Element
+  Text box or text area
+    t = $browser.text_field(:name, &quot;username&quot;)
+  Button
+    b = $browser.button(:value, &quot;Click Here&quot;)
+  Drop down list
+    d = $browser.select_list(:name, &quot;month&quot;)
+  Check box
+    c = $browser.checkbox(:name, &quot;enabled&quot;)
+  Radio button
+    r = $browser.radio(:name, &quot;payment type&quot;)
+  Form
+    f = $browser.form(:name, &quot;address&quot;)
+    f = $browser.form(:action, &quot;submit&quot;)
+  Link
+    l = $browser.link(:url, &quot;http://google.com&quot;)
+  Table cell in a table (2nd row, 1st column)
+    td = $browser.table(:name, 'recent_records')[2][1]
+	
+*Manipulate the Element
+  Click a button or link
+	b.click
+	l.click
+  Enter text in a text box
+	t.set(&quot;mickey mouse&quot;)
+	t.set &quot;mickey mouse&quot;
+  Enter multiple lines in a multi-line text box
+    t.set(&quot;line 1\nline2&quot;)
+    t.set &quot;line 1\nline2&quot;
+  Set radio button or check box
+    c.set
+    r.set
+  Clear an element
+    t.clear
+	c.clear
+	r.clear
+  Select an option in a drop down list
+	d.select(&quot;Hey!&quot;)
+	d.select &quot;Hey!&quot;
+  Clear a drop down list
+    d.clearSelection
+  Submit a form
+    f.submit
+  Flash any element (useful from the watir-console)
+    e.flash
+
+*Check the Contents
+  Return the html of the page or any element
+	$browser.html
+	e.html
+  Return the text of the page or any element
+	$browser.text
+	e.text
+  Return the title of the document
+	$browser.title
+  Return true if the specified text appears on the page
+	$browser.text.include? 'llama'
+  Return the contents of a table as an array
+    $browser.table(:id, 'recent_records').to_a</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>How to printf a Chinese char to Linux command line ( terminal ) ?
+1. Check terminal encoding ( mostly UTF-8 )
+2. Check Source codes file encoding ( in vim, :set encoding , mostly UTF-8 )
+3. In c++ source file, literal chinese is encoded with source code encoding
+and compiled to bytes into your binary. 
+So this works : printf(&quot;%s\n&quot;, (const char*) _chinese_bytes_buffer_ );
+
+In Qt3, QString has a method called utf8(), this returns a QCString that can
+be directly casted to raw bytes with (const char*) opeartor.
+
+These raw bytes will be utf8 encoding, and will be interpreted and displayed
+correctly on a Linux console that has UTF-8 encoding.
+
+Of course you need the Chinese font to display Chinese codepoints.
+
+========
+To make your script cope with different character sets, you can set the $KCODE global (or specify the -K option to the interpreter):
+
+$KCODE='UTF8'
+
+Was originally introduced to signal the Ruby interpreter to go into a certain encoding mode. It's currently (mis)used by several libraries to set the global encoding of text (ie. jcode and activesupport)
+
+Values supported in Ruby1.8 appear to be:
+EUC ('-e', 'e')
+SJIS ('-s', 's')
+UTF8 ('-u', 'u')
+NONE ('-n', 'n')
+
+When manipulating strings, include the 'jcode' library:
+
+require 'jcode'
+
+This will extend the string class to behave in a multi-byte fashion when appropriate, as well as introducing:
+
+&quot;fish&quot;.mbchar? # Returns the index of the first multibyte character in the string, or nil
+&quot;cat&quot;.jlength  # The length, in characters rather than bytes, of the string
+
+You can get even more Unicode support by using ActiveSupport.
+
+require 'rubygems' rescue LoadError
+require 'active_support'
+
+$KCODE='UTF8'
+&quot;Café&quot;.chars.upcase</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

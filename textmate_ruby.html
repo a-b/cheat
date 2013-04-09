@@ -1,0 +1,121 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>⌘ = command
+⌃ = control
+⌥ = option
+⇧ = shift
+
+Ruby keyboard shortcuts
+
+Run current line         ⇧ ⌃ E
+Run current document     ⌘ R
+Run single unit test     ⌘ ⇧ R
+
+NAVIGATING:
+ ⌘ ^ T	Find  ⌘
+ ⌘ T		Find file in project by name (type name or acronym for file)
+ ⌘ ⇧ T		Go to Symbol
+ ⌘ 1 / 2 	Switch to that number tab in Text
+ ⌘ F2		Toggle Bookmark
+F2			Cycle Bookmarks
+F1			Toggle Fold
+
+SELECTING:
+ ^ W		Select current word
+ ⌘ ⇧ L		Select current line
+ ⌘ ⇧ B		Select enclosed braces
+ ⌘ ^ B		Select current scope
+
+EDITING:
+Escape		Tab completion of variables / strings
+ ⌘ Enter	Go to end of line and return
+ ⌘ ⇧ V		Paste previous item in clipboard history
+ ⌘ ^ ⌥ V	Select from Clipboard
+ ⌘ ^ A		Edit Multiple Lines
+ ^ U		Upcase
+ ^ ⇧ U		Downcase
+ ^ ⌥ U		TitleCase
+ ^ ⌥ Q		Unwrap line, remove newlines
+ ^ K		Kill all text to end of line
+ ^ Y		Yank back all text from kill
+ ^ D		Delete character (not backspace)
+
+SEARCH &amp; REPLACE:
+ ^ S		Live Search / Find Next
+ ^ ⇧ S		Find Previous
+ ⌘ F		Find
+ ⌘ ⇧ F		Find in Project
+
+COMMENTING, QUOTING, AND INDENTING:
+ ⌘ /		Comment Toggle
+ ^ &quot;		Single/Double Quotes Toggle
+ ⌘ ]		Indent Selection
+ ⌘ [		Un-indent Selection
+ ⌘ ⌥ [		Reindent
+
+CTAGS:
+ ^ ]		Lookup Definition
+  ⌘ ^ B		Source Browser
+
+WEB:
+  ⌘ ^ ⌥ P	Web Preview
+  ⌘ ^ ⇧ W 	Update missing tags for all lines
+ ^ ⇧ &lt;		Create tags	(HTML)
+ ^ Enter	&lt;br/&gt;
+ ^ ⇧ L		Wrap selection as Link
+ doctype-tabDocument Type Section
+ head-tab
+ body-tab
+ table-tab
+  ⌘-&amp;		Menu for URL
+
+COMMAND LINE:
+ find {app,lib} -name '*.rb' -o -name '*.rhtml' -print0 | xargs -0 mate
+
+RUBY:
+ ^H			Documentation for word
+ ^{			Toggle do/end {/}
+ ^|			Install Plugin, Dump DB, etc. Menu
+ %			Eval as Ruby (not in output)
+  ⌘ R		Run Ruby Script
+ ^ ⇧ E		Execute Line as Ruby
+ ^ ⇧ ⌘ E	Execute all lines marked with '# =&gt;' as Ruby
+ R-tab		attr_reader
+ W-tab		attr_writer
+ RW-tab 	attr_accessor 
+ def-tab	define method
+ if-tab
+ case-tab
+ cla-tab
+ mod-tab
+ ea-tab
+ eawi-tab
+
+RAILS MIGRATIONS:
+ mccc-tab	Create Several Columns
+ mcol-tab	Column Menu
+ mtab-tab	Table Menu
+
+RAILS VIEWS:
+ ^ ⇧ V		&lt;%= %&gt; Insert (and Toggle)
+ ^ ⇧ H		Create partial from selection
+
+RAILS CONTROLLERS:
+ ^ P		params
+ ^ J		session
+ ⌘ ⇧ ⌥ Down	Jump to Controller helper/test/view/etc.
+
+SUBVERSION:
+ ^ ⇧ A		SVN Menu
+  1			Add
+  2			Remove
+  3			Revert
+  5			Commit
+  6			Blame
+  7			Info
+  8			Log
+  9			View Revision
+  0			Stat
+
+SHELL:
+ ^R			Run Current Line in the Shell</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

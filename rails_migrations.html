@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>AT notes:
+# Add to existing model
+$ rails generate migration AddStaticDataJSONToReports static_data_json:string
+$ vim db/migrate/20120209232000_add_static_data_json_to_reports.rb 
++ &quot;add_column :reports, :static_data_json, :text, :limit =&gt; 4294967295&quot;
+$ bundle exec rake db:migrate
+# Create a new model
+$ rails generate model GhostApplication application_name:string application_label:string file_hash:string  file_hash_sha1:string file_hash_sha256:string platform:integer requests:integer 
+
+
+
+http://wiki.rubyonrails.com/rails/pages/UsingMigrations
+
+valid data types:
+  :integer :float
+  :datetime :date :timestamp :time
+  :text :string
+  :binary
+  :boolean
+options:
+  :null (boolean)
+  :limit (integer)
+  :default
+  :precision (integer)
+  :scale (integer)
+
+create the model       ./script/generate model model_name
+apply schema changes   rake db:migrate
+modify schema          ./script generate migration description_name</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

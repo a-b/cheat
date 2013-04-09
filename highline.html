@@ -1,0 +1,41 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>##############################################################################
+agree( yes_or_no_question, character = nil )           # return boolean 
+ask( question, answer_type = String ) {|question| ...} # string by default
+choose( *items, &amp;details )                             # string
+list( items, mode = :rows, option = nil )              # string
+   # Other modes available :columns_across , :columns_down and :inline
+##############################################################################
+                     ##  FROM THE HIGHLINE RDOC  ##
+Basic usage:
+
+  ask(&quot;Company?  &quot;) { |q| q.default = &quot;none&quot; }
+
+Validation:
+
+  ask(&quot;Age?  &quot;, Integer) { |q| q.in = 0..105 }
+  ask(&quot;Name?  (last, first)  &quot;) { |q| q.validate = /\A\w+, ?\w+\Z/ }
+
+Type conversion for answers:
+
+  ask(&quot;Birthday?  &quot;, Date)
+  ask(&quot;Interests?  (comma sep list)  &quot;, lambda { |str| str.split(/,\s*/) })
+
+Reading passwords:
+
+  ask(&quot;Enter your password:  &quot;) { |q| q.echo = false }
+  ask(&quot;Enter your password:  &quot;) { |q| q.echo = &quot;x&quot; }
+
+ERb based output (with HighLine’s ANSI color tools):
+
+  say(&quot;This should be &lt;%= color('bold', BOLD) %&gt;!&quot;)
+
+Menus:
+
+  choose do |menu|
+    menu.prompt = &quot;Please choose your favorite programming language?  &quot;
+
+    menu.choice(:ruby) { say(&quot;Good choice!&quot;) }
+    menu.choices(:python, :perl) { say(&quot;Not from around here, are you?&quot;) }
+  end</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

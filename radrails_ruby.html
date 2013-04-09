@@ -1,0 +1,789 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>-- RadRails Ruby Cheat Sheet -- 
+all
+all? { |${e}| ${cursor} }
+
+am
+alias_method :${new_name}, :${old_name}
+
+any
+any? { |${e}| ${cursor} }
+
+app
+if __FILE__ == $$PROGRAM_NAME
+	${cursor}
+end
+
+Array
+Array.new(${10}) { |${i}|${cursor} }
+
+art
+assert_redirected_to :action =&gt; &quot;${index}&quot;
+
+as
+assert(${test}, &quot;${message}&quot;)
+
+asa
+assert(${var} = assigns(:${var}), &quot;@${var} should be defined&quot;)
+
+ase
+assert_equal(${expected}, ${actual})
+
+asid
+assert_in_delta(${expected_float}, ${actual_float}, ${20})
+
+asio
+assert_instance_of(${ExpectedClass}, ${actual_instance})
+
+asko
+assert_kind_of(${ExpectedKind}, ${actual_instance})
+
+asm
+assert_match(/${expected_pattern}/, ${actual_string})
+
+asn
+assert_nil(${instance})
+
+asne
+assert_not_equal(${unexpected}, ${actual})
+
+asnm
+assert_no_match(/${unexpected_pattern}/, ${actual_string})
+
+asnn
+assert_not_nil(${instance})
+
+asnnv
+assert_not_nil(${var} = assigns(:${var}))
+
+asnr
+assert_nothing_raised(${Exception}) { ${cursor} }
+
+asns
+assert_not_same(${unexpected}, ${actual})
+
+asnt
+assert_nothing_thrown { ${cursor} }
+
+aso
+assert_operator(${left}, :${operator}, ${right})
+
+asr
+assert_raise(${Exception}) { ${cursor} }
+
+asrdt
+assert_redirected_to(${path}, '${message}')
+
+asre
+assert_response :${success}
+
+asrt
+assert_respond_to(${object}, :${method})
+
+ass
+assert_same(${expected}, ${actual})
+
+ass
+assert_send([${object}, :${message}, ${args}])
+
+ast
+assert_throws(:${expected}) { ${cursor} }
+
+b
+=begin rdoc
+	${cursor}
+=end
+
+begin
+begin
+	${paste}
+rescue ${Exception} =&gt; ${e}
+	${cursor}
+end
+
+
+bm
+TESTS = ${10_000}
+Benchmark.bmbm(${10}) do |results|
+  ${cursor}
+end
+
+bt
+belongs_to :${object}
+
+btf
+belongs_to :${object}, :class_name =&gt; '${class_name}', :foreign_key =&gt; :${foreign_key}
+
+case
+case ${object}
+when ${condition}
+	${cursor}
+end
+
+cl
+classify { |${e}| ${cursor} }
+
+cla
+class ${ClassName} &lt; DelegateClass(${ParentClass})
+	def initialize${1}
+		super(${del_obj})
+		
+		${cursor}
+	end
+	
+	
+end
+
+cla
+class ${ClassName} &lt; ${ParentClass}
+	def initialize${1}
+		${cursor}
+	end
+	
+	
+end
+
+cla
+class ${ClassName} &lt; Struct.new(:${attr_names})
+	def initialize(*args)
+		super
+		
+		${cursor}
+	end
+	
+	
+end
+
+cla
+class ${ClassName}
+	${cursor}
+end
+
+cla
+class ${ClassName}
+	def initialize${1}
+		${cursor}
+	end
+	
+	
+end
+
+cla
+class &lt;&lt; ${self}
+	${cursor}
+end
+
+cla
+class ${BlankSlate}
+	instance_methods.each { |meth| undef_method(meth) unless meth =~ /\A__/ }
+	
+	def initialize${var}
+		@${delegate} = ${delegate_object}
+		
+		${cursor}
+	end
+	
+	def method_missing(meth, *args, &amp;block)
+		@${delegate}.send(meth, *args, &amp;block)
+	end
+	
+	
+end
+
+clafn
+split(&quot;::&quot;).inject(Object) { |par, const| par.const_get(const) }
+
+class
+class ${ClassName}
+	${cursor}
+end
+
+col
+collect { |${e}| ${cursor} }
+
+collect
+collect { |${element}| ${element}.${cursor} }
+
+Comp
+include Comparable
+
+def &lt;=&gt;(other)
+	${cursor}
+end
+
+dee
+Marshal.load(Marshal.dump(${obj_to_copy}))
+
+def
+def ${method_name}
+	${cursor}
+end
+
+defd
+def_delegator :${del_obj}, :${del_meth}, :${new_name}
+
+defds
+def_delegators :${del_obj}, :${del_methods}
+
+deff
+def ${method_name}
+	${cursor}
+end
+
+defs
+def self.${class_method_name}
+	${cursor}
+end
+
+deft
+def test_${case_name}
+	${cursor}
+end
+
+deli
+delete_if { |${e}| ${cursor} }
+
+det
+detect { |${e}| ${cursor} }
+
+Dir
+Dir.glob(${glob}) { |${file}| ${cursor} }
+
+do
+do
+	${cursor}
+end
+
+doo
+do |${object}|
+	${cursor}
+end
+
+dow
+downto(${0}) { |${n}|${cursor} }
+
+ea
+each { |${e}| ${cursor} }
+
+eab
+each_byte { |${byte}| ${cursor} }
+
+eac
+each_char { |${chr}| ${cursor} }
+
+eac
+each_cons(${2}) { |${group}| ${cursor} }
+
+each
+each { |${element}| ${element}.${cursor} }
+
+each_with_index
+each_with_index { |${element}, ${idx}| ${element}.${cursor} }
+
+eai
+each_index { |${i}| ${cursor} }
+
+eak
+each_key { |${key}| ${cursor} }
+
+eal
+each_line${1} { |${line}| ${cursor} }
+
+eap
+each_pair { |${name}, ${val}| ${cursor} }
+
+eas
+each_slice(${2}) { |${group}| ${cursor} }
+
+eav
+each_value { |${val}| ${cursor} }
+
+eawi
+each_with_index { |${e}, ${i}| ${cursor} }
+
+elsif
+elsif ${condition}
+	${cursor}
+
+Enum
+include Enumerable
+
+def each(&amp;block)
+	${cursor}
+end
+
+fet
+fetch(${name}) { |${key}|${cursor} }
+
+fil
+fill(${range}) { |${i}|${cursor} }
+
+File
+File.foreach(${file}) { |${line}| ${cursor} }
+
+fin
+find { |${e}| ${cursor} }
+
+fina
+find_all { |${e}| ${cursor} }
+
+fl
+flunk(&quot;${message}&quot;)
+
+flao
+inject(Array.new) { |${arr}, ${a}| ${arr}.push(*${a}) }
+
+flash
+flash[:${notice}] = &quot;${Successfully}&quot;${cursor}
+
+forin
+for ${element} in ${collection}
+	${element}.${cursor}
+end
+
+Forw
+extend Forwardable
+
+gre
+grep(${pattern}) { |${match}| ${cursor} }
+
+gsu
+gsub(/${pattern}/) { |${match}|${cursor} }
+
+habtm
+has_and_belongs_to_many :${object}
+
+Hash
+Hash.new { |${hash}, ${key}| ${hash}[${key}] = ${cursor} }
+
+hm
+has_many :${models}
+
+hmf
+has_many :${models}, :class_name =&gt; '${class_name}', :foreign_key =&gt; :${foreign_key}
+
+hmt
+has_many :${models}, :through =&gt; :${join_models}
+
+ho
+has_one :${model}
+
+hof
+has_one :${model}, :class_name =&gt; '${class_name}', :foreign_key =&gt; :${foreign_key}
+
+hp
+:${key} =&gt; ${value}
+
+if
+if ${condition}
+	${cursor}
+end
+
+ife
+if ${condition}
+	${2}
+else
+	${3}
+end
+
+inj
+inject(${init}) { |${mem}, ${var}| ${cursor} }
+
+inject
+inject(${object}) { |${injection}, ${element}| ${4} }${cursor}
+
+lam
+lambda { |${args}|${cursor} }
+
+log
+logger.debug &quot;${message}&quot;${cursor}
+
+loge
+logger.error &quot;${message}&quot;${cursor}
+
+logf
+logger.fatal &quot;${message}&quot;${cursor}
+
+logi
+logger.info &quot;${message}&quot;${cursor}
+
+logw
+logger.warn &quot;${message}&quot;${cursor}
+
+mac
+add_column :${table}, :${column}, :${string}
+
+map
+map { |${e}| ${cursor} }
+
+mapwi
+enum_with_index.map { |${e}, ${i}| ${cursor} }
+
+max
+max { |a, b| ${cursor} }
+
+mcc
+t.column :${title}, :${string}${cursor}
+
+mccc
+t.column :${title}, :${string}
+mccc${cursor}
+
+mct
+create_table :${table} do |t|
+    ${cursor}
+end
+
+Md
+File.open(${dump}, &quot;w&quot;) { |${file}| Marshal.dump(${obj}, ${file}) }
+
+mdt
+drop_table :${table}
+${cursor}
+
+min
+min { |a, b| ${cursor} }
+
+Ml
+File.open(${dump}) { |${file}| Marshal.load(${file}) }
+
+mm
+def method_missing(meth, *args, &amp;block)
+	${cursor}
+end
+
+mnc
+rename_column :${column}, :${new_column}
+
+mnt
+rename_table :${table}, :${new_name}${cursor}
+
+mod
+module ${ModuleName}
+	module ClassMethods
+		${cursor}
+	end
+	
+	extend ClassMethods
+	
+	def self.included(receiver)
+		receiver.extend(ClassMethods)
+	end
+	
+	
+end
+
+mod
+module ${ModuleName}
+	${cursor}
+end
+
+mod
+module ${ModuleName}
+	module_function
+	
+	${cursor}
+end
+
+mrc
+remove_column :${table}, :${column}
+
+ope
+open(${pipe}) { |${io}| ${cursor} }
+
+opt
+opts.on( &quot;-${o}&quot;, &quot;--${option}&quot;${1},
+         &quot;${description}&quot; ) do |${opt}|
+	${cursor}
+end
+
+optp
+require &quot;optparse&quot;
+require &quot;ostruct&quot;
+
+options = OpenStruct.new(${default})
+
+ARGV.options do |opts|
+	opts.banner = &quot;Usage:  #{File.basename($$PROGRAM_NAME)}  [OPTIONS]${1}&quot;
+	
+	opts.separator &quot;&quot;
+	opts.separator &quot;Specific Options:&quot;
+	
+	${cursor}
+	
+	opts.separator &quot;Common Options:&quot;
+	
+	opts.on( &quot;-h&quot;, &quot;--help&quot;,
+	         &quot;Show this message.&quot; ) do
+		puts opts
+		exit
+	end
+	
+	begin
+		opts.parse!
+	rescue
+		puts opts
+		exit
+	end
+end
+
+
+par
+partition { |${e}| ${cursor} }
+
+params
+params[:${id}]
+
+patfh
+File.join(File.dirname(__FILE__), *%w[${here}])
+
+Pn
+PStore.new(${file_name})
+
+ra
+render :action =&gt; &quot;${action}&quot;
+
+ral
+render :action =&gt; &quot;${action}&quot;, :layout =&gt; &quot;${layoutname}&quot;
+
+ran
+sort_by { rand }
+
+rb
+#!/usr/bin/env ruby -w
+
+
+
+rcea
+render_component :action =&gt; &quot;${index}&quot;
+
+rcec
+render_component :controller =&gt; &quot;${items}&quot;
+
+rceca
+render_component :controller =&gt; &quot;${items}&quot;, :action =&gt; &quot;${index}&quot;
+
+rdb
+RAILS_DEFAULT_LOGGER.debug &quot;${message}&quot;${cursor}
+
+rea
+redirect_to :action =&gt; &quot;${index}&quot;
+
+reai
+redirect_to :action =&gt; &quot;${show}&quot;, :id =&gt; ${item}
+
+rec
+redirect_to :controller =&gt; &quot;${items}&quot;
+
+reca
+redirect_to :controller =&gt; &quot;${items}&quot;, :action =&gt; &quot;${list}&quot;
+
+recai
+redirect_to :controller =&gt; &quot;${items}&quot;, :action =&gt; &quot;${show}&quot;, :id =&gt; ${item}
+
+rej
+reject { |${e}| ${cursor} }
+
+reject
+reject { |${element}| ${element}.${cursor} }
+
+rep
+results.report(&quot;${name}:&quot;) { TESTS.times { ${cursor} } }
+
+req
+require &quot;${cursor}&quot;
+
+reve
+reverse_each { |${e}| ${cursor} }
+
+rf
+render(:file =&gt; &quot;${filepath}&quot;)
+
+rfu
+render(:file =&gt; &quot;${filepath}&quot;, :use_full_path =&gt; ${false})
+
+ri
+render(:inline =&gt; &quot;${hello}&quot;)
+
+ril
+render(:inline =&gt; &quot;${hello}&quot;, :locals =&gt; { ${name} =&gt; &quot;${value}&quot;${4} })
+
+rit
+render(:inline =&gt; &quot;${hello}&quot;, :type =&gt; ${rxml})
+
+rl
+render(:layout =&gt; &quot;${layoutname}&quot;)
+
+rn
+render(:nothing =&gt; ${true})
+
+rns
+render(:nothing =&gt; ${true}, :status =&gt; ${401})
+
+ro
+attr_reader :${attr_names}
+
+rp
+render(:partial =&gt; &quot;${item}&quot;)
+
+rpc
+render(:partial =&gt; &quot;${item}&quot;, :collection =&gt; ${items})
+
+rpl
+render(:partial =&gt; &quot;${item}&quot;, :locals =&gt; { :${name} =&gt; ${value} })
+
+rpo
+render(:partial =&gt; &quot;${item}&quot;, :object =&gt; ${object})
+
+rps
+render(:partial =&gt; &quot;${item}&quot;, :status =&gt; ${500})
+
+rt
+render(:text =&gt; &quot;${render}&quot;)
+
+rtl
+render(:text =&gt; &quot;${render}&quot;, :layout =&gt; &quot;${layoutname}&quot;)
+
+rtlt
+render(:text =&gt; &quot;${render}&quot;, :layout =&gt; ${true})
+
+rts
+render(:text =&gt; &quot;${render}&quot;, :status =&gt; ${401})
+
+rw
+attr_accessor :${attr_names}
+
+sca
+scan(/${pattern}/) { |${match}| ${cursor} }
+
+sel
+select { |${e}| ${cursor} }
+
+select
+select { |${element}| ${element}.${2} }${cursor}
+
+session
+session[:${User}]
+
+sin
+class &lt;&lt; self; self end
+
+sor
+sort { |a, b| ${cursor} }
+
+sorb
+sort_by { |${e}| ${cursor} }
+
+ste
+step(${2}) { |${n}|${cursor} }
+
+sub
+sub(/${pattern}/) { |${match}|${cursor} }
+
+tc
+require &quot;test/unit&quot;
+
+require &quot;${library_file_name}&quot;
+
+class Test${amp} &lt; Test::Unit::TestCase
+	def test_${case_name}
+		${cursor}
+	end
+end
+
+tim
+times { |${n}|${cursor} }
+
+tra
+transaction${1} { ${cursor} }
+
+ts
+require &quot;test/unit&quot;
+
+require &quot;tc_${test_case_file}&quot;
+require &quot;tc_${test_case_file}&quot;
+
+
+uni
+ARGF.each_line${1} do |${line}|
+	${cursor}
+end
+
+unless
+unless ${condition}
+	${cursor}
+end
+
+until
+until ${condition}
+	${cursor}
+end
+
+upt
+upto(${0}) { |${n}|${cursor} }
+
+usai
+if ARGV.${1}
+  puts &quot;Usage:  #{$$PROGRAM_NAME} ${ARGS_GO_HERE}&quot;
+  exit
+end
+
+usau
+unless ARGV.${1}
+  puts &quot;Usage:  #{$$PROGRAM_NAME} ${ARGS_GO_HERE}&quot;
+  exit
+end
+
+va
+validates_associated :${attribute}
+
+vc
+validates_confirmation_of :${attribute}
+
+ve
+validates_exclusion_of :${attribute}
+
+verify
+verify :only =&gt; [:${1}], :session =&gt; :user, :params =&gt; :id, :redirect_to =&gt; {:action =&gt; '${index}'}
+
+
+verify
+verify :only =&gt; [:${1}], :method =&gt; :post, :render =&gt; {:status =&gt; 500, :text =&gt; &quot;use HTTP-POST&quot;}
+
+
+vl
+validates_length_of :${attribute}, :within =&gt; ${20}
+
+vp
+validates_presence_of :${attribute}
+
+vpif
+validates_presence_of :${attribute}, :if =&gt; proc { |obj| ${condition} }}
+
+vu
+validates_uniqueness_of :${attribute}
+
+when
+when ${condition}
+	${cursor}
+
+while
+while ${condition}
+	${cursor}
+end
+
+wo
+attr_writer :${attr_names}
+
+Yd
+File.open(${yaml}, &quot;w&quot;) { |${file}| YAML.dump(${obj}, ${file}) }
+
+yields
+ :yields: ${arguments}
+
+Yl
+File.open(${yaml}) { |${file}| YAML.load(${file}) }
+
+zip
+zip(${enums}) { |${row}| ${cursor} }</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

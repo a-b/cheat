@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Options for has_one:
+
+:class_name - specify the class name of the association. Use it only if that name can't be inferred from the association name. So has_one :manager will by default be linked to the Manager class, but if the real class name is Person, you'll have to specify it with this option.
+
+:conditions - specify the conditions that the associated object must meet in order to be included as a &quot;WHERE&quot; sql fragment, such as &quot;rank = 5&quot;.
+
+:order - specify the order from which the associated object will be picked at the top. Specified as an &quot;ORDER BY&quot; sql fragment, such as &quot;last_name, first_name DESC&quot;
+
+:dependent - if set to :destroy (or true) all the associated objects are destroyed when this object is. Also, association is assigned.
+
+:foreign_key - specify the foreign key used for the association. By default this is guessed to be the name of this class in lower-case and &quot;_id&quot; suffixed. So a Person class that makes a has_one association will use &quot;person_id&quot; as the default foreign_key.
+
+:include - specify second-order associations that should be eager loaded when this object is loaded.</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

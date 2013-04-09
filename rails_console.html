@@ -1,0 +1,54 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Reloading the Console Environment:
+&gt;&gt; reload!
+&gt;&gt; Dispatcher.reset_application!   # (outdated)
+
+Load and execute a Ruby script:
+&gt;&gt; load &quot;the_file_name.rb&quot;
+
+Using app object:
+&gt;&gt; app.get '/stories/10002'
+=&gt; 200
+&gt;&gt; app.assigns(:story)
+=&gt; #&lt;Story:0x24aad0c ... &gt;
+&gt;&gt; app.path
+=&gt; &quot;/stories/10002&quot; 
+&gt;&gt; app.reset!
+=&gt; nil
+
+Using helpers methods:
+&gt;&gt; helper.pluralize 2, &quot;story&quot; 
+=&gt; &quot;2 stories&quot;
+
+Clear the console:
+ctrl + l or Command + k (Mac)
+
+How-to Examine Routes:
+rs = ActionController::Routing::Routes
+puts rs.routes
+rs.recognize_path &quot;/session&quot;
+rs.generate :controller =&gt; &quot;users&quot;, :action =&gt; &quot;edit&quot;, :id =&gt; &quot;4&quot;
+
+Print as YAML
+&gt;&gt; y @something
+
+Grep available methods between model objects:
+&gt;&gt; p = Post.new # in this case there's a corresponding Comments model too
+&gt;&gt; y p.methods.grep(/commen/).sort
+--- 
+- autosave_associated_records_for_comments
+- comment_ids
+- comment_ids=
+- comments
+- comments=
+...
+...
+etc.
+
+Start in a sandbox (any modifications you make to the database will be rolled back on exit)
+$ ./script/console -s
+
+See also:
+
+$ cheat console</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

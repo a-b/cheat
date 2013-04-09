@@ -1,0 +1,242 @@
+# [cheat sheets.](/)
+
+`$ command line ruby cheat sheets`
+
+    
+    Installing
+    0. old: (script/plugin install git://github.com/mbleigh/acts-as-taggable-on.git)
+    1. gem install "acts-as-taggable-on"
+    2. run the initializer to create the tables
+    
+    3. add to "class Post < ActiveRecord::Base" [or whatever class]:
+    >> acts_as_taggable
+    >> acts_as_taggable_on :skills, :interests [if you want contexts]
+    
+    
+    How To Use (these are not all the methods from each class, just the most useful ones)
+    ----------
+    
+    Class TagList
+    
+        # Returns a new TagList using the given tag string.
+        # Example:
+        #   tag_list = TagList.from("One , Two,  Three")
+        #   tag_list # ["One", "Two", "Three"]
+    
+        # Add tags to the tag_list. Duplicate or blank tags will be ignored.
+        # Use the <tt>:parse</tt> option to add an unparsed tag string.
+        # Example:
+        #   tag_list.add("Fun", "Happy")
+        #   tag_list.add("Fun, Happy", :parse => true)
+    
+        # Remove specific tags from the tag_list.
+        # Use the <tt>:parse</tt> option to add an unparsed tag string.
+        # Example:
+        #   tag_list.remove("Sad", "Lonely")
+        #   tag_list.remove("Sad, Lonely", :parse => true)
+    
+        # Transform the tag_list into a tag string suitable for edting in a form.
+        # The tags are joined with <tt>TagList.delimiter</tt> and quoted if necessary.
+        # Example:
+        #   tag_list = TagList.new("Round", "Square,Cube")
+        #   tag_list.to_s # 'Round, "Square,Cube"'
+    
+    
+    Class Tag
+        def self.named(name)
+          where(["name #{like_operator} ?", name])
+        end
+      
+        def self.named_any(list)
+          where(list.map { |tag| sanitize_sql(["name #{like_operator} ?", tag.to_s]) }.join(" OR "))
+        end
+      
+        def self.named_like(name)
+          where(["name #{like_operator} ?", "%#{name}%"])
+        end
+    
+        def self.named_like_any(list)
+          where(list.map { |tag| sanitize_sql(["name #{like_operator} ?", "%#{tag.to_s}%"]) }.join(" OR "))
+        end
+    
+    
+    Class Collection
+          # Calculate the tag counts for all tags.
+          #
+          # @param [Hash] options Options:
+          # * :start_at   - Restrict the tags to those created after a certain time
+          # * :end_at     - Restrict the tags to those created before a certain time
+          # * :conditions - A piece of SQL conditions to add to the query
+          # * :limit      - The maximum number of tags to return
+          # * :order      - A piece of SQL to order by. Eg 'tags.count desc' or 'taggings.created_at desc'
+          # * :at_least   - Exclude tags with a frequency less than the given value
+          # * :at_most    - Exclude tags with a frequency greater than the given value
+          # * :on         - Scope the find to only include a certain context
+    
+    
+    Class Core
+          ##
+          # Return a scope of objects that are tagged with the specified tags.
+          #
+          # @param tags The tags that we want to query for
+          # @param [Hash] options A hash of options to alter you query:
+          #                       * <tt>:exclude</tt> - if set to true, return objects that are *NOT* tagged with the specified tags
+          #                       * <tt>:any</tt> - if set to true, return objects that are tagged with *ANY* of the specified tags
+          #                       * <tt>:match_all</tt> - if set to true, return objects that are *ONLY* tagged with the specified tags
+          #
+          # Example:
+          #   User.tagged_with("awesome", "cool")                     # Users that are tagged with awesome and cool
+          #   User.tagged_with("awesome", "cool", :exclude => true)   # Users that are not tagged with awesome or cool
+          #   User.tagged_with("awesome", "cool", :any => true)       # Users that are tagged with awesome or cool
+          #   User.tagged_with("awesome", "cool", :match_all => true) # Users that are tagged with just awesome and cool
+    
+          def tag_list_on(context)
+            add_custom_context(context)
+            tag_list_cache_on(context)
+          end
+    
+          def all_tags_list_on(context)
+            variable_name = "@all_#{context.to_s.singularize}_list"
+            return instance_variable_get(variable_name) if instance_variable_get(variable_name)
+            instance_variable_set(variable_name, ActsAsTaggableOn::TagList.new(all_tags_on(context).map(&:name)).freeze)
+          end
+    
+          ##
+          # Returns all tags of a given context
+          def all_tags_on(context)
+            tag_table_name = ActsAsTaggableOn::Tag.table_name
+            tagging_table_name = ActsAsTaggableOn::Tagging.table_name
+    
+            opts =  ["#{tagging_table_name}.context = ?", context.to_s]
+            base_tags.where(opts).order("max(#{tagging_table_name}.created_at)").group("#{tag_table_name}.id, #{tag_table_name}.name").all
+          end
+    
+    
+    Class Acts_as_Tagger
+    
+          # Tag a taggable model with tags that are owned by the tagger. 
+          #
+          # @param taggable The object that will be tagged
+          # @param [Hash] options An hash with options. Available options are:
+          #               * <tt>:with</tt> - The tags that you want to
+          #               * <tt>:on</tt>   - The context on which you want to tag
+          #
+          # Example:
+          #   @user.tag(@photo, :with => "paris, normandy", :on => :locations)
+    
+    
+    
+    
+    
+    
+    
+    
+    -----
+    
+    class User < ActiveRecord::Base
+      acts_as_taggable_on :tags, :skills, :interests, :sports
+    end
+    
+    @user = User.new(:name => "Bobby")
+    @user.tag_list = "awesome, slick, hefty"      # this should be familiar
+    @user.skill_list = "joking, clowning, boxing" # but you can do it for any context!
+    @user.skill_list # => ["joking","clowning","boxing"] as TagList
+    @user.save
+    
+    @user.tags # => [<Tag name:"awesome">,<Tag name:"slick">,<Tag name:"hefty">]
+    @user.skills # => [<Tag name:"joking">,<Tag name:"clowning">,<Tag name:"boxing">]
+    
+    User.tagged_with("awesome") # => [@user]
+    User.tagged_with("joking") # => [@user]
+    User.tagged_with("awesome", :on => :tags) # => [@user]
+    User.tagged_with("awesome", :on => :skills) # => []
+    
+    @frankie = User.create(:name => "Frankie", :skill_list => "joking, flying, eating")
+    User.skill_counts # => [<Tag name="joking" count=2>,<Tag name="clowning" count=1>...]
+    
+    @bobby.skill_counts
+    @frankie.skill_counts
+    
+    (http://www.intridea.com/2007/12/4/announcing-acts_as_taggable_on)
+    
+    -----
+    
+    # acts_as_taggable_on
+     ###################
+    
+    # EXAMPLE
+     ####################
+    
+    class Record “archive”
+     @rec.mytag_list = “boring, boxy, brown” # Sets tag list
+     @rec.tags # => [,,]
+    
+    # AR RELATIONSHIPS:
+     ####################
+     @rec.mytag_taggings # References related records on “taggables” table
+     @rec.base_tags # References related records on “tags” table
+    
+    # INSTANCE METHODS:
+     ####################
+     @rec.tag_types # [:associations, :tags]
+     @rec.is_taggable? # true
+     @rec.is_taggable? # confirms if tags can be added?
+     @rec.custom_contexts # ??
+     @rec.add_custom_context(value) # ??
+     @rec.set_tag_list_on(:mytags, “some, tags”) # Context version of tag_list=
+     @rec.tag_list_on(:mytags) # Context version of tag_list()
+     @rec.tags_on(:mytags) # Context verison of base_tags()
+    
+    # Dynamically created based on tag contexts
+     @rec.#{tag_type}_list # Context :mytags … mytag_list()
+     @rec.#{tag_type}_list=(new_tags) # Context :mytags … mytag_list=
+     @rec.#{tag_type}_counts(options = {}) # Context :mytags … mytag_counts()
+     @rec.#{tag_type}_from(owner) # Context :mytags … mytag_from()
+     @rec.find_related_#{tag_type}(options = {}) # Context :mytags … find_related_mytag
+     @rec.find_related_#{tag_type}_for(klass, options = {}) # Context :mytags … find_related_mytag_for()
+     @rec.find_related_on_#{tag_type} # Alias of find_related_mytag
+     @rec.tag_counts_on(:on => :mytag) # Returns tags of the provided context
+    
+    @rec.related_search_options #
+     @rec.reload_with_tag_list #
+     @rec.save_cached_tag_list # called by :before_save filter
+     @rec.save_tags # called by :after_save filter
+    
+    # SINGLETON METHODS:
+     ####################
+     Record.tagged_with(“awesome”,  n => :skills) # Get all tags
+     Record.find_tagged_with(“comp”,  n => :tags) # same but does not uses “named_scope”
+     Record.caching_tag_list_on? # Is it in the cache
+     Record.tag_counts_on(:on => :skills) # Get counts for tag context
+     Record.find_options_for_find_tagged_with # Gets query options for retrieving
+     Record.#{tag_type}_counts(options={}) # Context :mytags … mytag_counts()
+     Record.find_options_for_tag_counts(options = {}) # Gets query options for counts
+    
+    # CACHING METHODS (incomplete!)
+     #######################
+     @rec.caching_#{tag_type.singularize}_list?
+     @rec.caching_tag_list_on
+    
+    ** Looks for column called “cached_#{context}_list” on the acts_as_taggable record table
+     ** Not tested much by the original author, but should update before saving via filter
+    
+    ###################
+     ## acts_as_tagger
+     ###################
+    
+    # EXAMPLE
+     ####################
+     class User “cabinet, document”,  n => :mytags) # adds the tags to @rec in the specified context
+     @rec.mytags_from(@user) # returns taggings applied by user to @rec
+    
+    # AR RELATIONSHIPS:
+     ####################
+    
+    @user.owned_taggings # Returns all “taggings” belonging to user
+     @user.owned_tags # Returns all tags by join “taggings” belonging to user on “tags”[/ruby]
+    
+    (http://crunchytoast.com/2009/02/15/return-to-acts_as_taggable_on/)
+
+Powered by [Sinatra](http://www.sinatrarb.com/), [Puma](http://puma.io/) and,
+to a lesser extent, [Err the Blog](http://errtheblog.com/).
+

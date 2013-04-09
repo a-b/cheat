@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>(from jQuery in Action)
+
+Basic CSS selectors
+
+*    - any element
+E    - elements with tag E
+E F  - elements with tag F that are descendants of E
+E&gt;F  - elements with tag F that are direct children of E
+E+F  - elements F immediately preceded by sibling E
+E~F  - elements F preceded by any sibling E
+E:has(F) - elements E that have at least one decedent with tag F
+E.C  - elements with class name C. omitting E is the same as *.C
+E#I  - elements E with id I. omitting E is the same as *#I
+E[A] - elements with attribute A of any value
+E[A=V]  - elements with attribute A whose value is exactly V
+E[A^=V] - elements with attribute A whose value begins with V
+E[A$=V] - elements with attribute A whose value ends with V
+E[A*=V] - elements with attribute A whose value contains V
+
+Advanced positional selectors
+
+:first - first match of the page
+:last  - last match of the page
+:first-child - first child element
+:last-child - last child element
+:only-child - elements that have no siblings
+:nth-child(n) - nth child element
+:nth-child(even|odd) - even or odd children
+:nth-child(Xn+Y) - nth child element computed by formula
+:even and :odd - even and odd elements page wide
+:eq(n) - the nth matching element
+:gt(n) - elements after (and excluding) nth matching element
+:lt(n) - elements before (and excluding) nth matching element
+
+Custom selectors
+
+:animated - elements that are under animated control
+:button - any button
+:checkbox - only check box elements
+:checked - check boxes or radio buttons that are checked
+:contains(foo) - elements containing text foo
+:disabled - form elements that are disabled
+:enabled - form elements that are enabled
+:file - selects all file elements
+:header - all elements h1..h6
+:hidden - elements that are hidden
+:image - form images
+:input - form elements
+:not(filter) - negates the specified filter
+:parent - elements that have children
+:password - password elements
+:radio - radio elements
+:reset - reset buttons
+:selected - option elements that are selected
+:submit - submit buttons
+:text - text elements (input[type=text])
+:visible - elements that are visible
+
+Hide all Paragraph elements that contain a class attribute:
+
+ $(&quot;p[class]&quot;).hide();
+
+Show the first paragraph on the page:
+
+ $(&quot;p:eq(0)&quot;).show();
+
+Hide all divs that are currently showing:
+
+ $(&quot;div:visible&quot;).hide();
+
+Get all list items that are children of an unordered list:
+
+ $(&quot;ul/li&quot;)
+ /* valid too: $(&quot;ul &gt; li&quot;) */
+
+Get all Paragraphs, with a class of 'foo', that have a link in them:
+
+ $(&quot;p.foo[a]&quot;);
+
+Get list item that contains link with &quot;Register&quot; text inside:
+
+ $(&quot;li[a:contains('Register')]&quot;);
+
+Get the input field's value with the name of 'bar':
+
+ $(&quot;input[@name=bar]&quot;).val();
+
+All checked radio buttons:
+
+ $(&quot;input[@type=radio][@checked]&quot;)
+
+Disable then re-enable an element:
+
+ $(&quot;#my&quot;).attr('disabled',true);
+ $(&quot;#my&quot;).removeAttr('disabled');
+
+Add/Remove CSS style:
+
+ $(&quot;#my&quot;).addClass(&quot;highlight&quot;).removeClass(&quot;arrr&quot;);
+
+Highlight in yellow a newly updated element for 3 seconds:
+
+ $(&quot;#my&quot;).effect('highlight', {color: 'Yellow'}, 3000);
+
+Make an Ajax call:
+
+ $.ajax({
+   type : 'POST',
+   url  : '/app/action',
+   data : { attribute1: 'value1', 
+            attribute2: 'value2' },
+   dataType: 'json',
+   async : false,
+   success: function(result) {
+      /* use json result.attribute3, ...  */
+   }
+ });
+
+ $.get('/app/action', function(data) { ... });
+
+Generate new HTML DOM nodes:
+
+  $(&quot;&lt;div&gt;This is new&lt;/div&gt;&quot;);
+  $(&quot;&lt;div&gt;&lt;/div&gt;&quot;);
+  $(&quot;&lt;div&gt;&quot;);
+
+Setting Element Content
+
+  $(&quot;&lt;li&gt;This is new&lt;/li&gt;&quot;).appendTo(&quot;#list&quot;);</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

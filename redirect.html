@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre># Send contents of file to command
+$ command &lt; file	
+
+# Redirect Stderr twice		
+$ command 2&gt; file2 &gt; file1 2&gt;&amp;1	
+
+# Text to Stdin (command)
+$ command &lt;&lt; 'text'				
+
+# Redirect both Stdout and Stderr to file
+$ command &gt; file 2&gt;&amp;1		
+
+# Redirect Stdout to one file and Stderr to another
+$ command &gt; file1 2&gt; file2	
+
+# Pipe Stdout and Stderr to another process	
+$ command 2&gt;&amp;1 | command2			
+
+$ less &lt;(gzip -cd foo.gz)
+$ gzip -cd foo.gz &amp;&amp; less foo
+
+# Redirect an error
+$ echo An Error &gt;&amp;2 2&gt;&amp;1 | sed -e 's/A/I/'
+
+# Duplicate output
+$ command | tee file1 &gt; file2</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

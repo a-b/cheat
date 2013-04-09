@@ -1,0 +1,187 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>general Informations and Key shortcuts for Kent Sibilev's great ruby-debug gem.
+http://www.datanoise.com/ruby-debug/, http://rubyforge.org/projects/ruby-debug/
+
+A reference manual for version 0.10.0 is at http://bashdb.sf.net/ruby-debug.html
+
+Installation
+gem install ruby-debug
+gem install ruby-debug19 (for 1.9)
+
+Usage
+rdebug [options] &lt;script.rb&gt; -- &lt;script.rb parameters&gt;
+
+startup settings:
+rdebug reads its configuration file at startup. 
+create a file ~/.rdebugrc with this content:
+
+set autolist
+set autoeval
+set autoreload
+
+after starting rdebug like: rdebug script/server
+enter 'c' and 'return' for starting up rdebug finally.
+
+Most important commands:
+r[eload], n[ext], c[ont]
+
+###################################################################
+Commands (available as 'help &lt;command-name&gt;' in active debug mode)
+
+backtrace (alias for where)
+(rdb:1) bt|backtrace
+
+break
+(rdb:1) b[reak] file:line [if expr]
+(rdb:1) b[reak] class(.|#)method [if expr]
+          set breakpoint to some position, (optionally) if expr == true
+
+Before version 0.10.0:
+(rdb:1) b[reak]    list breakpoints 
+0.10.0 or later:
+(rdb:1) info b[reak]
+
+catch
+(rdb:1) cat[ch]                 (show catchpoint)
+(rdb:1) cat[ch] &lt;an Exception&gt;  (set catchpoint to an exception)
+
+cont
+(rdb:1) c[ont][ nnn] (run until program ends or hits breakpoint or reaches line nnn)
+
+delete
+(rdb:1) del[ete][ nnn] (delete some or all breakpoints)
+
+disable
+(rdb:1) disable BPT-NUM - disable given breakpoint number
+
+display
+(rdb:1) disp[lay] &lt;expression&gt; (add expression into display expression list)
+(rdb:1) disp[lay]              (display expression list)
+
+down
+(rdb:1) down [count] (move to lower frame)
+
+enable
+(rdb:1) enable BPT-NUM - enable given breakpoint number
+
+eval
+(rdb:1) e[val] expression evaluate expression and print its value, alias for p.
+                    * NOTE - to turn on autoeval, use 'set autoeval'
+
+exit
+(rdb:1) q[uit]  exit from debugger,
+(rdb:1) exit    alias to quit
+
+finish
+(rdb:1) fin[ish] return to outer frame
+
+frame
+(rdb:1) f[rame] frame-number
+  Move the current frame to the specified frame number.
+  A negative number indicates position from the other end.  
+  So 'frame -1' moves to the oldest frame, and 'frame 0' moves to
+  the newest frame.
+
+help
+(rdb:1) h[elp]          print help
+(rdb:1) h[elp] command  print help on command
+
+irb
+(rdb:1) irb starts an IRB session. (EXPERIMENTAL)
+
+list
+(rdb:1) l[ist]          list forward
+(rdb:1) l[ist] -        list backward
+(rdb:1) l[ist] =        list current line
+(rdb:1) l[ist] nn-mm    list given lines
+
+method
+(rdb:1) m[ethod] i[nstance] &lt;obj&gt;       show methods of object
+(rdb:1) m[ethod] &lt;class|module&gt;         show instance methods of class or module
+
+next
+(rdb:1) n[ext][+][ nnn] step over once or nnn times,
+                  '+' forces to move to another line
+
+p
+(rdb:1)  p expression    evaluate expression and print its value
+
+pp
+(rdb:1) pp expression   evaluate expression and pretty-print its value
+
+ps
+(rdb: 1) ps array - print array in columnized sorted order (e.g. &quot;ps Kernel.methods&quot;)
+
+putl
+(rdb: 1) putl array - print array in columnized order
+
+quit
+(rdb:1) q[uit]  exit from debugger,
+(rdb:1) exit    alias to quit
+
+reload
+(rdb:1) r[eload]        forces source code reloading
+
+restart
+(rdb:1) restart|R [args]
+Restart the program. This is is a re-exec - all debugger state
+is lost. If command arguments are passed those are used.
+
+save
+(rdb:1) save [FILE]      saves current breakpoints and catchpoint as a script file
+
+Before 0.10.0:
+(rdb:1) script FILE     executes a script file
+After 0.10.0 (to be gdb compatible):
+(rdb:1) source FILE     executes a script file
+
+set
+(rdb:1) set &lt;setting&gt;
+where &lt;setting&gt;:
+  args           - argument list to give program being debugged when restarted
+  autolist       - execute 'list' command on every breakpoint
+  autoeval       - evaluate every unrecognized command
+  autoreload     - enables automatic source code reloading
+  autoirb        - debugger invokes IRB on every stop
+  listsize       - number of source lines to list by default
+  trace          - display stack trace when 'eval' raises exception
+  framefullpath  - frame will display full file names
+  frameclassname - frame will display class names
+  forcestep      - make sure 'next/step' commands always move to a new line
+  width          - number of characters the debugger thinks are in a line
+
+To disable setting, use 'no' prefix, like 'noautolist' or &quot;off&quot; as in
+&quot;autolist off&quot;
+
+step
+(rdb:1) s[tep][ nnn]    step (into methods) once or nnn times
+
+thread
+(rdb:1) th[read] l[ist]                 list all threads
+(rdb:1) th[read] [sw[itch]] &lt;nnn&gt;       switch thread context to nnn
+(rdb:1) th[read] stop &lt;nnn&gt;             stop thread nnn
+(rdb:1) th[read] c[ur[rent]]            show current thread
+(rdb:1) th[read] resume &lt;nnn&gt;           resume thread nnn
+
+trace
+(rdb:1) tr[ace] (on|off)        set trace mode of current thread
+(rdb:1) tr[ace] (on|off) all    set trace mode of all threads
+
+undisplay
+(rdb:1) undisp[lay][ nnn]       delete one particular or all display expressions
+
+up
+(rdb:1) up[count]       move to higher frame
+
+var
+(rdb:1) v[ar] const &lt;object&gt;            show constants of object
+(rdb:1) v[ar] g[lobal]                  show global variables
+(rdb:1) v[ar] i[nstance] &lt;object&gt;       show instance variables of object
+(rdb:1) v[ar] l[ocal]                   show local variables
+
+Before 10.0 const can be abbreviated &quot;c&quot;, after 10.0 or later you need
+&quot;co&quot; because there is also &quot;var class &lt;object&gt;&quot;.
+
+where
+(rdb:1) w[here] display frames</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

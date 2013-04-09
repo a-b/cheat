@@ -1,0 +1,43 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>== Basics  
+
+  term   - a single bare word
+  phrase - &quot;group of words surrounded by double quotes&quot;
+
+== Operators
+
+  All operators are in UPPERCASE. 
+
+  AND - matches docs where both operands match
+      * cheat AND sheet
+      * cheat AND sheet AND &quot;ruby gem&quot;
+
+  OR  - matches docs where either operands match
+      * cheat OR sheet
+      * cheat OR sheet OR &quot;ruby gem&quot;
+
+  NOT - removes docs from result set that match the operand
+      - the NOT operator MUST be used in conjuction with another
+        operation
+      * &quot;cheat sheet&quot; NOT lucene
+
+== Grouping
+
+  Grouping is done with left and right parentheses ( ).
+
+  - look for documents that have the words 'cheat' AND 'sheet'
+    but not 'ruby' or 'rails'
+
+  ( cheat AND sheet ) NOT ( ruby OR rails )
+
+
+== Proximity Search
+
+  Apply a tilde '~N' to a phrase.  This finds documents where all
+  the words in the phrase are within N words of each other.
+
+  - find all documents where the words 'cheat' and 'sheet' are
+    within 10 words of each other.
+
+  &quot;cheat sheet&quot;~10</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

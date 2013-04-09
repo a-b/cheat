@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Regular callbacks in ActiveRecord::Base:
+
+  1. before_validation
+  2. before_validation_on_create
+  3. after_validation
+  4. after_validation_on_create
+  5. before_save
+  6. before_create
+  7. after_create
+  8. after_save
+  9. before_destroy
+  10. after_destroy
+
+Usage:
+
+  Define a method:
+
+    class Foo &lt; ActiveRecord::Base
+      def before_create
+        # your code here
+      end
+    end
+
+ Invoke callback with a name of a method:
+
+    class Foo &lt; ActiveRecord::Base
+      before_create :do_stuff
+    protected
+      def do_stuff
+        # your code here
+      end
+    end
+
+  Invoke callback with a block:
+
+    class Foo &lt; ActiveRecord::Base
+      before_create do
+        def do_stuff
+          # your code here
+        end
+      end
+    end
+
+Exceptions:
+
+  1. after_find
+  2. after_initialize 
+
+Usage:
+
+  Define a method:
+
+    class Foo &lt; ActiveRecord::Base
+      def after_find
+        do_stuff
+      end
+    end</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

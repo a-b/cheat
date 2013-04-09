@@ -1,0 +1,9 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Puts lines from two files together, either lines of each file side by side (normally separated by a tab-stop but you can have any symbols(s) you like...) or it can have words from each file (the first file then the second file) side by side.
+
+To obtain a list of lines side by side, the first lines from the first file on the left side separated by a tab-stop then the first lines from the second file. You would type:
+$  paste file1.txt file2.txt
+
+To have the list displayed in serial, first line from first file, [Tab], second line from first file, then third and fourth until the end of the first file type:
+$  paste --serial file1.txt file2.txt</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

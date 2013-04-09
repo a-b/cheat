@@ -1,0 +1,130 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>oh sh*t - what to do if you've screwed something up
+================================================================================
+C-_ / C-x u / C-/      undo (undo)
+C-g                    abort command sequence (keyboard-quit)
+C-x C-c                quit (save-buffers-kill-terminal)
+M-x menu-bar-mode RET  toggle the menu bar on or off (menu-bar-mode)
+M-x revert-buffer RET  reload current buffer from disk
+C-x C-s                save the current file
+
+files, buffers &amp; windows
+======================================================================
+C-x C-f            open or create a file (open)
+C-x C-s            save the current file/buffer
+C-x C-w            save as
+C-x k              kill (close) a file/buffer
+C-x b              switch to another buffer/window (choose from prompt)
+C-x C-b            list all open buffers (list-buffers)
+C-x 2              split window horizontally
+C-x 3              split window vertically
+C-x 1              kill (close) other window
+C-x 0              kill (close) this window
+
+moving around
+======================================================================
+C-f / C-b          forward / back one character
+M-f / M-b          forward / back one word
+C-n / C-p          next / previous line
+C-a / C-e          beginning of / end of line
+M-a / M-e          backward / forward sentence
+M-{ / M-}          backward / forward paragraph
+M-&lt; / M-&gt;          beginning of / end of buffer
+C-M-f / C-M-b      forward / back one &quot;sexp&quot;
+C-v / M-v          page down / page up
+C-M-v / S-C-M-v    page down / page up in other window
+
+select, cut, copy, paste
+======================================================================
+C-x h              select all (select-whole-buffer)
+
+search and replace
+======================================================================
+C-s                search (isearch-foward)
+  C-s                next match; use twice to repeat last search
+  C-r                previous match
+  RET                stop here
+  C-g                stop and go back to starting location
+
+M-%                find &amp; replace (query-replace)
+C-M-%              regexp find &amp; replace
+  y                  replace current match
+  n                  skip current match
+  !                  replace all
+  RET                stop here
+  C-g                stop and go back to starting location
+
+
+coding
+======================================================================
+M-g g                      goto line
+M-;                        comment/uncomment selection
+C-M-\                      re-indent (reformat) selection
+M-x toggle-truncate-lines  switches between line-wrap and no-line-wrap
+
+spelling
+======================================================================
+M-x flyspell         &quot;live&quot; spellchecking (flyspell)
+M-$                  spell check (ispell-word)
+
+bookmarks - C-x r
+======================================================================
+C-x r m              set a bookmark at the current location (e.g. in a file)
+C-x r b              jump to a bookmark
+C-x r l              list your bookmarks
+   a                 show annotation for the current bookmark
+   A                 show all annotations for your bookmarks
+   d                 mark various entries for deletion (‘x’ – to delete them)
+   e                 edit the annotation for the current bookmark
+   m                 mark various entries for display and other operations, (‘v’ – to visit)
+   o                 visit the current bookmark in another window, keeping the bookmark list open
+   C-o               switch to the current bookmark in another window
+   r                 rename the current bookmark
+M-x bookmark-delete  delete a bookmark by name
+
+shell
+======================================================================
+M-!                run a shell command
+M+x shell          open a shell buffer
+C+u M+x shell      open a new shell buffer
+M+x term           open a terminal emulator
+C+u M+x term       open a new terminal emulator
+
+misc
+======================================================================
+C-x C-+            increase font size; C-+ to repeat
+C-x C--            decrease font size; C-- to repeat
+
+getting help
+======================================================================
+C-h b              list all key bindings
+C-h w &lt;function&gt;   list all key bindings for &lt;function&gt;
+C-h c &lt;sequence&gt;   list function bound to &lt;sequence&gt;
+C-h k &lt;sequence&gt;   show help for function bound  to &lt;sequence&gt;
+C-h i              show help/tutorial (Use C-x k to close it)
+C-x C-h            list key bindings starting with C-x
+C-c C-h            list key bindings starting with C-c
+
+notes
+======================================================================
+C-x means &quot;Control-x&quot;
+M-x (usually) means &quot;Alt-x&quot;
+S-x means &quot;Special-X&quot;, typically &quot;Windows-X&quot; (or clover-X on Apple?)
+
+Key bindings can be changed by your .emacs file and the major- or
+minor-mode you are in. They could be different than what you see here.
+
+more cheat sheets and help
+======================================================================
+cheat emacs_basics
+cheat emacs_tips
+cheat emacs-ruby      - ruby support in emacs (sheet has been deleted?)
+cheat emacs_psvn      - svn supprort in emacs
+cheat emacs_slime     - &quot;superior&quot; lisp support in emacs
+
+http://www.gnu.org/software/libtool/manual/emacs/
+http://refcards.com/docs/wingb/xemacs/xemacs-refcard-a4.pdf
+http://www.stevenchan.us/files/Notesheet-Emacs.pdf
+https://ccrma.stanford.edu/guides/package/emacs/emacs.html
+http://www.rgrjr.com/emacs/emacs_cheat.html</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

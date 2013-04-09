@@ -1,0 +1,41 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>chmod: a Unix utility for managing file permissions
+
+Modes can be expressed in octal or human-readable:
+
+                          Description | Octal  | Human-readable
+    ----------------------------------+--------+---------------
+                       Set user write | 200    | u=w
+    Set user rwx, group and others rx | 755    | u=rwx,go=rx
+                       Add group read | -      | g+w
+                   Remove all execute | 111    | a-x
+     Set user rws, everyone else none | 4700   | u=rwxs,go-rwx
+                      Add user sticky | -      | u+s
+                     Add group sticky | -      | g+s
+Octal
+-----
+With three-digit octal notation, each numeral represents a different component of the permission set: user class, group class, and &quot;others&quot; class respectively.
+
+Each of these digits is the sum of its component bits. As a result, specific bits add to the sum as it is represented by a numeral:
+
+ * The read bit adds 4 to its total,
+ * The write bit adds 2 to its total,
+ * The execute bit adds 1 to its total.
+
+Examples
+--------
+
+&quot;-rwxr-xr-x&quot; would be represented as 755 in three-digit octal.
+&quot;-rw-rw-r--&quot; would be represented as 664 in three-digit octal.
+&quot;-r-x------&quot; would be represented as 500 in three-digit octal.
+
+Example: Make foo u=rwx and go=rx:
+  $ chmod u=rwx,go=rx foo
+
+Example: Make foo u=rwx and go=rx (in octal):
+  $ chmod 755 foo
+
+Example: Find all subdirectories, put them in 'mygroup', make them group sticky:
+  $ find . -type d -exec chgrp mygroup \{\} \;
+  $ find . -type d -exec chmod g+s \{\} \;</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

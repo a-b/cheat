@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>File in Use?
+  lsof | grep &lt;file&gt;  (case-sensitive)
+
+Check the dependecy of a binary file:
+  objdump -p a.exe | grep 'DLL Name'
+
+To run a process in the background, regardless of whether the terminal window is closed:
+  nohup &lt;some command&gt; &amp;
+
+  eg. nohup ruby /u/app/qbglc/current/script/runner -e development 'load &quot;/u/app/qbglc/current/script/app/some_script.rb&quot;' &amp;
+
+Disk Usage:
+$ du -sh *
+$ df -h
+
+Version:
+$ uname -a
+or
+$ cat /etc/*-release
+
+Find (suppress err):
+$ find &lt;dir&gt; -name &lt;pattern&gt; 2&gt;/dev/null</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>

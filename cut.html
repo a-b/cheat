@@ -1,0 +1,21 @@
+<!DOCTYPE html><html><head><title>$ command line ruby cheat sheets</title><link charset="utf-8" href="/style.css" media="screen" rel="stylesheet" type="text/css" /></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ command line ruby cheat sheets</code></div></div><div class="content"><pre>Prints selected parts of lines (of a text file), or, in other words, removes certain sections of a line. You may wish to remove things according to tabs or commas, or anything else you can think of...
+
+Options for cut:
+
+	-d 						# allows you to specify another delimiter
+	cut -d ':' /etc/passwd
+	
+	-f 						# columns, separated by delimiter
+	cut -d ',' -f 1 /etc/passwd 
+
+	, 						# separate numbers, used to cut particular columns.
+	cut -d ':' -f 1,7 /etc/passwd
+
+	- 						# from line x to line y
+	cut -c 1-50 file1.txt
+
+	-x 						# cut from line 1 to “x”
+	x- 						# cut from “x” to the end.
+	cut -5, 20-, 8 file2.txt</pre></div><div class="clear"></div><div class="footer">Powered by <a href="http://www.sinatrarb.com/">Sinatra</a>,
+<a href="http://puma.io/">Puma</a> and, to a lesser extent,
+<a href="http://errtheblog.com/">Err the Blog</a>.</div></body></html>
